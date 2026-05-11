@@ -1,5 +1,5 @@
 ---
-import { Siren, Award } from "lucide-react"
+import { Siren, Award, Phone } from "lucide-react"
 import { getLocationText } from "@/config/site"
 
 interface Feature {
@@ -13,7 +13,6 @@ interface Props {
   phoneLabel?: string;
   phone?: string;
   features?: Feature[];
-  borderColor?: string;
 }
 
 const { 
@@ -25,7 +24,6 @@ const {
     { icon: "siren", text: "24/7 Emergency Service" },
     { icon: "award", text: "Experienced & Certified Technicians" }
   ],
-  borderColor
 } = Astro.props;
 
 // Process text placeholders
@@ -36,38 +34,49 @@ const features = rawFeatures.map(f => ({ ...f, text: getLocationText(f.text) }))
 
 const iconMap = {
   siren: Siren,
-  award: Award
+  award: Award,
+  phone: Phone
 };
-
-const borderStyle = borderColor ? `border-top: 4px solid ${borderColor}; border-bottom: 4px solid ${borderColor};` : "";
 ---
 
-<section class="py-8 bg-primary text-primary-foreground relative overflow-visible" style={`border-top: 4px solid var(--brand-highlight, #45f9ff); border-bottom: 4px solid var(--brand-highlight, #45f9ff);${borderStyle ? ' ' + borderStyle : ''}`}>
-  <div class="container mx-auto px-4 relative">
-    <img
-      src="/images/plumber.png"
-      alt=""
-      class="hidden md:block absolute bottom-0 left-0 w-28 lg:w-36 -translate-x-4 z-10 pointer-events-none"
-      style="bottom: -2rem;"
-      aria-hidden="true"
-    />
-    <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:pl-36 lg:pl-44" data-animate="fade-up">
-      <div class="flex flex-col sm:flex-row items-center gap-6">
-        <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-8 py-4 text-lg font-semibold hover:bg-accent/90 transition-colors shadow-lg shadow-accent/30">
+<section class="py-12 bg-white relative overflow-visible">
+  {/* Decorative Clay Blobs */}
+  <div class="absolute top-1/2 -left-20 w-80 h-80 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 relative overflow-visible">
+    {/* Main Puffy Strip Container */}
+    <div class="clay-strip relative bg-[#3B82F6] rounded-[40px] p-8 md:p-12 shadow-clayCard overflow-visible flex flex-col md:flex-row items-center justify-between gap-10">
+      
+      {/* Background Puffy Glow */}
+      <div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-[40px] pointer-events-none"></div>
+
+      {/* Floating Plumber Image */}
+      <img
+        src="/images/plumber.png"
+        alt="Professional Plumber"
+        class="hidden lg:block absolute -top-24 -left-12 w-48 h-auto z-20 pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] transform -rotate-3 group-hover:rotate-0 transition-transform duration-700"
+      />
+
+      <div class="flex flex-col sm:flex-row items-center gap-8 lg:ml-40 relative z-10 w-full lg:w-auto">
+        <a href={buttonHref} class="clay-btn-white w-full sm:w-auto h-20 px-10 text-lg text-[#3B82F6] font-black uppercase tracking-widest flex items-center justify-center">
           {buttonText}
         </a>
+        
         <div class="text-center sm:text-left">
-          <p class="text-sm opacity-90">{phoneLabel}</p>
-          <a href={`tel:${phone}`} class="text-2xl font-bold hover:underline">{phone}</a>
+          <p class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-1" style="font-family: 'JetBrains Mono', monospace;">{phoneLabel}</p>
+          <a href={`tel:${phone}`} class="text-3xl font-black text-white tracking-tight hover:scale-105 transition-transform inline-block" style="font-family: 'Poppins', sans-serif;">{phone}</a>
         </div>
       </div>
-      <div class="flex flex-wrap items-center justify-center gap-6">
+
+      <div class="flex flex-wrap items-center justify-center lg:justify-end gap-10 relative z-10">
         {features.map((feature) => {
           const IconComponent = iconMap[feature.icon as keyof typeof iconMap];
           return (
-            <div class="flex items-center gap-2">
-              {IconComponent && <IconComponent className="w-6 h-6" />}
-              <span class="text-sm font-medium">{feature.text}</span>
+            <div class="flex items-center gap-4 group">
+              <div class="w-12 h-12 rounded-full bg-white shadow-clayButton flex items-center justify-center text-[#3B82F6] group-hover:scale-110 transition-transform">
+                {IconComponent && <IconComponent className="w-6 h-6" />}
+              </div>
+              <span class="text-[12px] font-black text-white uppercase tracking-wider leading-tight max-w-[140px]" style="font-family: 'Poppins', sans-serif;">{feature.text}</span>
             </div>
           );
         })}
@@ -75,3 +84,44 @@ const borderStyle = borderColor ? `border-top: 4px solid ${borderColor}; border-
     </div>
   </div>
 </section>
+
+<style>
+  /* Clay Foundations */
+  .shadow-clayCard {
+    box-shadow: 
+      16px 16px 32px rgba(28, 57, 142, 0.2),
+      -8px -8px 16px rgba(255, 255, 255, 0.1),
+      inset 6px 6px 12px rgba(255, 255, 255, 0.2),
+      inset -6px -6px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-clayButton {
+    box-shadow: 
+      6px 6px 12px rgba(0, 0, 0, 0.1),
+      -4px -4px 8px rgba(255, 255, 255, 0.4),
+      inset 2px 2px 4px rgba(255, 255, 255, 0.6),
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .clay-btn-white {
+    background: #FFFFFF;
+    border-radius: 24px;
+    box-shadow: 
+      12px 12px 24px rgba(0, 0, 0, 0.1),
+      inset 4px 4px 8px rgba(255, 255, 255, 1),
+      inset -4px -4px 8px rgba(28, 57, 142, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .clay-btn-white:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      16px 16px 32px rgba(0, 0, 0, 0.15),
+      inset 4px 4px 8px rgba(255, 255, 255, 1);
+  }
+
+  .clay-btn-white:active {
+    transform: scale(0.95);
+    box-shadow: inset 6px 6px 12px rgba(28, 57, 142, 0.1);
+  }
+</style>

@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site"
-import { Facebook } from "lucide-react"
+import { Facebook, Mail, MapPin, Phone } from "lucide-react"
 
-// X (Twitter) icon component since lucide doesn't have the new X logo
+// X (Twitter) icon component
 function XIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -26,83 +26,58 @@ export function Footer() {
   ]
 
   const servicesOffer = [
-    { title: "RESIDENTIAL PLUMBING SERVICES", href: "/residential-plumbing" },
-    { title: "COMMERCIAL PLUMBING SERVICES", href: "/commercial" },
-    { title: "SPECIALTY PLUMBING SERVICES", href: "/specialty" },
-    { title: "MAINTENANCE SERVICES", href: "/maintenance" },
+    { title: "RESIDENTIAL PLUMBING", href: "/residential-plumbing" },
+    { title: "COMMERCIAL PLUMBING", href: "/commercial" },
+    { title: "SPECIALTY SERVICES", href: "/specialty" },
+    { title: "MAINTENANCE", href: "/maintenance" },
   ]
 
   return (
-    <footer className="bg-brand-primary text-white">
-      {/* Main Footer Content */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="relative bg-[#1C398E] mt-24 rounded-t-[60px] overflow-visible shadow-clayDarkContainer">
+      {/* Puffy Accent Circle behind the footer */}
+      <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-[#3B82F6] rounded-full shadow-clayButton flex items-center justify-center text-white z-10 animate-bounce-slow">
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 14l-7 7-7-7m14-8l-7 7-7-7" /></svg>
+      </div>
+
+      <div className="container mx-auto px-6 pt-24 pb-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          
           {/* About Us Column */}
-          <div>
-            <h3 className="text-sm font-bold tracking-wide mb-4 flex items-center gap-2">
-              <span className="w-1 h-4 bg-[#A3032B] rounded-full"></span>
-              ABOUT US
-            </h3>
-            <p className="text-sm text-white/70 leading-relaxed mb-6">
-              We specialize in residential and commercial plumbing solutions. From repairs and maintenance to advanced leak detection and installations, our team is here to keep your plumbing running smoothly. Contact us today!
-            </p>
-            <div className="flex gap-2">
-              {siteConfig.social?.facebook && (
-                <a
-                  href={siteConfig.social.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook"
-                  className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-                >
-                  <Facebook className="w-4 h-4" aria-hidden="true" />
-                </a>
-              )}
-              {siteConfig.social?.twitter && (
-                <a
-                  href={siteConfig.social.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="X (Twitter)"
-                  className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-                >
-                  <XIcon className="w-4 h-4" aria-hidden="true" />
-                </a>
-              )}
-              {/* Default social icons if none configured */}
-              {!siteConfig.social?.facebook && !siteConfig.social?.twitter && (
-                <>
-                  <a
-                    href="#"
-                    aria-label="Facebook"
-                    className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-                  >
-                    <Facebook className="w-4 h-4" aria-hidden="true" />
-                  </a>
-                  <a
-                    href="#"
-                    aria-label="X (Twitter)"
-                    className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-                  >
-                    <XIcon className="w-4 h-4" aria-hidden="true" />
-                  </a>
-                </>
-              )}
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase mb-6 flex items-center gap-3" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                <span className="w-8 h-px bg-white/20"></span>
+                About Us
+              </h3>
+              <p className="text-[15px] text-white/70 leading-relaxed font-medium mb-8" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                We specialize in high-fidelity residential and commercial plumbing solutions. From repairs to advanced leak detection, we keep your systems running smoothly.
+              </p>
+            </div>
+            
+            <div className="flex gap-4">
+              <a href="#" className="clay-social-btn">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="clay-social-btn">
+                <XIcon className="w-5 h-5" />
+              </a>
+              <a href={`mailto:${siteConfig.contact?.email}`} className="clay-social-btn">
+                <Mail className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
           {/* Quick Links Column */}
-          <div>
-            <h3 className="text-sm font-bold tracking-wide mb-4 flex items-center gap-2">
-              <span className="w-1 h-4 bg-[#A3032B] rounded-full"></span>
-              QUICK LINKS
+          <div className="bg-white/5 rounded-[40px] p-8 shadow-clayInnerDark">
+            <h3 className="text-lg font-black text-white uppercase tracking-tight mb-8" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              Quick Links
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-white/70 hover:text-highlight transition-colors"
+                    className="text-[13px] font-bold text-white/60 hover:text-[#3B82F6] hover:translate-x-1 transition-all inline-block uppercase tracking-wide"
                   >
                     {link.title}
                   </a>
@@ -111,18 +86,17 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services Offer Column */}
-          <div>
-            <h3 className="text-sm font-bold tracking-wide mb-4 flex items-center gap-2">
-              <span className="w-1 h-4 bg-[#A3032B] rounded-full"></span>
-              SERVICES OFFER
+          {/* Services Column */}
+          <div className="bg-white/5 rounded-[40px] p-8 shadow-clayInnerDark">
+            <h3 className="text-lg font-black text-white uppercase tracking-tight mb-8" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              Services
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {servicesOffer.map((service) => (
                 <li key={service.href}>
                   <a
                     href={service.href}
-                    className="text-sm text-white/70 hover:text-highlight transition-colors"
+                    className="text-[13px] font-bold text-white/60 hover:text-[#16A34A] hover:translate-x-1 transition-all inline-block uppercase tracking-wide"
                   >
                     {service.title}
                   </a>
@@ -131,35 +105,99 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Information Column */}
-          <div>
-            <h3 className="text-sm font-bold tracking-wide mb-4 flex items-center gap-2">
-              <span className="w-1 h-4 bg-[#A3032B] rounded-full"></span>
-              CONTACT INFORMATION
+          {/* Contact Column */}
+          <div className="space-y-8">
+            <h3 className="text-lg font-black text-white uppercase tracking-tight mb-8" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              Contact
             </h3>
-            <ul className="space-y-2">
-              <li className="text-sm text-white/70">
-                PHONE:  {siteConfig.contact?.phoneFormatted}
-              </li>
-              <li className="text-sm text-white/70">
-                EMAIL:  {siteConfig.contact?.email?.toUpperCase()}
-              </li>
-              <li className="text-sm text-white/70">
-                ADDRESS:  {siteConfig.location?.city?.toUpperCase()}, {siteConfig.location?.state?.toUpperCase()}
-              </li>
-            </ul>
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 bg-white/10 p-4 rounded-[24px] shadow-clayInnerDark group hover:shadow-clayButton transition-all">
+                <div className="w-10 h-10 rounded-full bg-[#3B82F6] flex items-center justify-center shadow-clayButton">
+                  <Phone className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-white/40 uppercase tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>Call Us</p>
+                  <p className="text-sm font-black text-white">{siteConfig.contact?.phoneFormatted}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 bg-white/10 p-4 rounded-[24px] shadow-clayInnerDark group hover:shadow-clayButton transition-all">
+                <div className="w-10 h-10 rounded-full bg-[#16A34A] flex items-center justify-center shadow-clayButton">
+                  <MapPin className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-white/40 uppercase tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>Location</p>
+                  <p className="text-sm font-black text-white">{siteConfig.location?.city}, {siteConfig.location?.state}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Copyright Bar */}
+        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-[11px] font-bold text-white/20 uppercase tracking-[0.3em]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+            © {currentYear} {siteConfig.business?.name} — All Rights Reserved
+          </p>
+          <div className="flex gap-4">
+            <div className="px-4 py-1.5 rounded-full bg-[#16A34A]/20 text-[#16A34A] text-[9px] font-black uppercase tracking-widest shadow-clayInnerDark">
+              Licensed & Insured
+            </div>
+            <div className="px-4 py-1.5 rounded-full bg-[#3B82F6]/20 text-[#3B82F6] text-[9px] font-black uppercase tracking-widest shadow-clayInnerDark">
+              24/7 Service
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Copyright Bar */}
-      <div className="border-t border-white/10">
-        <div className="container mx-auto px-4 py-4">
-          <p className="text-sm text-white/50 text-center">
-            © Copyright {currentYear} {siteConfig.business?.name}
-          </p>
-        </div>
-      </div>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .shadow-clayDarkContainer {
+          box-shadow: 
+            0 -20px 40px rgba(0,0,0,0.2),
+            inset 0 10px 20px rgba(255,255,255,0.05);
+        }
+        .clay-social-btn {
+          width: 48px;
+          height: 48px;
+          border-radius: 16px;
+          background: rgba(255,255,255,0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          box-shadow: 
+            8px 8px 16px rgba(0,0,0,0.2),
+            -4px -4px 8px rgba(255,255,255,0.05),
+            inset 2px 2px 4px rgba(255,255,255,0.1),
+            inset -2px -2px 4px rgba(0,0,0,0.1);
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .clay-social-btn:hover {
+          transform: translateY(-4px) scale(1.1);
+          background: #3B82F6;
+          box-shadow: 12px 12px 24px rgba(0,0,0,0.3);
+        }
+        .shadow-clayInnerDark {
+          box-shadow: 
+            inset 6px 6px 12px rgba(0,0,0,0.2),
+            inset -4px -4px 8px rgba(255,255,255,0.05);
+        }
+        .shadow-clayButton {
+          box-shadow: 
+            6px 6px 12px rgba(0,0,0,0.2),
+            -4px -4px 8px rgba(255,255,255,0.05),
+            inset 2px 2px 4px rgba(255,255,255,0.2),
+            inset -2px -2px 4px rgba(0,0,0,0.1);
+        }
+        @keyframes bounce-slow {
+          0%, 100% { transform: translate(-50%, 0); }
+          50% { transform: translate(-50%, -10px); }
+        }
+        .animate-bounce-slow {
+          animation: bounce-slow 3s ease-in-out infinite;
+        }
+      `}} />
     </footer>
   )
 }

@@ -6,89 +6,93 @@
 <div id="free-scan-wrapper" class="hidden md:block fixed bottom-8 right-8 z-40">
   <button
     id="free-scan-trigger"
-    class="free-scan-btn relative flex items-center gap-0 bg-accent text-accent-foreground font-semibold text-sm rounded-full shadow-xl hover:shadow-2xl active:scale-[0.97] transition-all duration-300 group overflow-hidden"
+    class="clay-trigger relative flex items-center bg-white rounded-full transition-all duration-500 group pr-8 overflow-visible"
     aria-label="Get $50 off your next service"
   >
-    {/* Pulsing attention ring */}
-    <span class="free-scan-ping absolute inset-0 rounded-full border-2 border-accent"></span>
+    {/* Soft Clay Glow Ring */}
+    <span class="clay-glow-ring absolute inset-0 rounded-full"></span>
+    <span class="clay-glow-ping absolute inset-0 rounded-full border-2 border-[#3B82F6]/30"></span>
 
-    {/* Icon circle — sits flush left */}
-    <span class="relative flex items-center justify-center w-14 h-14 rounded-full flex-shrink-0" style="background: var(--brand-primary);">
+    {/* Puffy Icon Circle */}
+    <span class="relative flex items-center justify-center w-16 h-16 rounded-full flex-shrink-0 clay-icon-housing shadow-clayButton">
       <svg
-        class="w-6 h-6 text-white group-hover:scale-110 transition-transform duration-300"
+        class="w-7 h-7 text-white group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
       >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
           d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
       </svg>
-      {/* Teal dot indicator */}
-      <span class="absolute top-1 right-1 w-2.5 h-2.5 rounded-full border-2" style="background: var(--brand-highlight, #45f9ff); border-color: var(--brand-primary);"></span>
+      {/* Puffy Status Dot */}
+      <span class="absolute top-1 right-1 w-3.5 h-3.5 rounded-full bg-[#16A34A] border-2 border-white shadow-clayButton"></span>
     </span>
 
-    {/* Text content */}
-    <span class="flex flex-col items-start pl-3 pr-6 py-3 leading-tight">
-      <span class="free-scan-label text-[10px] font-semibold uppercase tracking-widest">Limited Offer</span>
-      <span class="text-base font-bold tracking-tight">$50 OFF — Claim Now</span>
+    {/* Text content - Montserrat & Poppins */}
+    <span class="flex flex-col items-start pl-4 py-2 leading-tight">
+      <span class="text-[9px] font-black uppercase tracking-[0.2em] text-[#3B82F6] mb-0.5" style="font-family: 'JetBrains Mono', monospace;">Limited Offer</span>
+      <span class="text-base font-black tracking-tight text-[#1C398E]" style="font-family: 'Poppins', sans-serif;">$50 OFF — Claim Now</span>
     </span>
-
-
   </button>
 </div>
 
 <style>
   #free-scan-wrapper {
-    animation: slide-up 0.5s ease-out 1s both;
+    animation: slide-up 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s both;
   }
 
   @keyframes slide-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Pulsing ring for attention */
-  .free-scan-ping {
-    animation: scan-ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  .clay-trigger {
+    box-shadow: 
+      12px 12px 24px rgba(28, 57, 142, 0.12),
+      -8px -8px 16px rgba(255, 255, 255, 1),
+      inset 4px 4px 8px rgba(255, 255, 255, 0.8),
+      inset -4px -4px 8px rgba(28, 57, 142, 0.02);
   }
 
-  @keyframes scan-ping {
-    0% {
-      transform: scale(1);
-      opacity: 0.5;
-    }
-    75%, 100% {
-      transform: scale(1.15);
-      opacity: 0;
-    }
+  .clay-trigger:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+      16px 16px 32px rgba(28, 57, 142, 0.15),
+      -8px -8px 16px rgba(255, 255, 255, 1);
   }
 
-  /* Hover lift */
-  .free-scan-btn:hover {
-    transform: translateY(-2px);
+  .clay-trigger:active {
+    transform: scale(0.96);
+    box-shadow: 
+      inset 6px 6px 12px rgba(28, 57, 142, 0.1),
+      inset -6px -6px 12px rgba(255, 255, 255, 1);
   }
 
-  /* Teal label, but inherit color on hover so it stays visible against teal bg */
-  .free-scan-label {
-    color: var(--brand-highlight, #45f9ff);
+  .clay-icon-housing {
+    background: #3B82F6;
+    box-shadow: 
+      inset 4px 4px 8px rgba(255, 255, 255, 0.4),
+      inset -4px -4px 8px rgba(0, 0, 0, 0.1);
   }
-  .free-scan-btn:hover .free-scan-label {
-    color: inherit;
+
+  .shadow-clayButton {
+    box-shadow: 
+      4px 4px 8px rgba(28, 57, 142, 0.1),
+      -4px -4px 8px rgba(255, 255, 255, 1);
+  }
+
+  /* Soft Clay Glow */
+  .clay-glow-ping {
+    animation: clay-ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes clay-ping {
+    0% { transform: scale(1); opacity: 0.6; }
+    75%, 100% { transform: scale(1.2); opacity: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .free-scan-ping {
-      animation: none;
-    }
-    #free-scan-wrapper {
-      animation: none;
-      opacity: 1;
-    }
+    .clay-glow-ping { animation: none; }
+    #free-scan-wrapper { animation: none; opacity: 1; }
   }
 </style>

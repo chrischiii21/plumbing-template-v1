@@ -1,5 +1,6 @@
 ---
 import { getLocationText } from "@/config/site"
+import { Camera } from "lucide-react"
 
 interface Props {
   badge?: string;
@@ -16,27 +17,83 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 const placeholderCount = images.length > 0 ? images.length : 8;
 ---
 
-<section class="py-16 md:py-24 bg-muted/30">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-12" data-animate="fade-up">
-      <span class="inline-block text-sm font-semibold text-accent uppercase tracking-wide border-b-2 border-accent pb-1">{badge}</span>
-      <h2 class="text-3xl md:text-4xl font-bold mt-4">{title}</h2>
+<section class="py-24 bg-white relative overflow-hidden">
+  {/* Ambient Clay Blobs */}
+  <div class="absolute top-1/2 -right-20 w-96 h-96 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 -left-20 w-80 h-80 bg-[#16A34A]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="text-center mb-16" data-animate="fade-up">
+      <div class="inline-flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-clayButton mb-6">
+        <Camera className="w-5 h-5 text-[#3B82F6]" />
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#1C398E]" style="font-family: 'JetBrains Mono', monospace;">{badge}</span>
+      </div>
+      <h2 class="text-4xl md:text-5xl font-black text-[#1C398E] mb-6 tracking-tight leading-tight" style="font-family: 'Poppins', sans-serif;">{title}</h2>
     </div>
     
-    <div class={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-${columns} gap-4`} data-animate-stagger>
+    <div class={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-${columns} gap-8`} data-animate-stagger>
       {images.length > 0 ? (
         images.map((img, i) => (
-          <div class="aspect-square rounded-lg overflow-hidden">
-            <img src={img} alt={`${title} - project ${i + 1}`} class="w-full h-full object-cover hover:scale-105 transition-transform ring-2 ring-transparent hover:ring-accent/50" loading="lazy" />
+          <div class="group relative" data-animate="fade-up">
+            {/* Puffy Clay Frame */}
+            <div class="aspect-square bg-white rounded-[40px] p-3 shadow-clayCard transition-all duration-700 group-hover:-translate-y-2 group-hover:rotate-2 group-hover:shadow-clayFloating overflow-hidden">
+              <div class="w-full h-full rounded-[30px] overflow-hidden shadow-clayInner relative">
+                <img 
+                  src={img} 
+                  alt={`${title} - project ${i + 1}`} 
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                  loading="lazy" 
+                />
+                <div class="absolute inset-0 bg-[#1C398E]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
+            </div>
           </div>
         ))
       ) : (
         Array.from({ length: placeholderCount }).map((_, i) => (
-          <div class="aspect-square bg-muted rounded-lg flex items-center justify-center">
-            <span class="text-muted-foreground text-sm">Project {i + 1}</span>
+          <div class="aspect-square bg-white rounded-[40px] p-4 shadow-clayCard flex items-center justify-center">
+            <div class="w-16 h-16 rounded-full bg-[#f8faff] shadow-clayInner animate-pulse" style={`animation-delay: ${i * 0.1}s`}></div>
           </div>
         ))
       )}
     </div>
+
+    {/* Decorative Elements */}
+    <div class="mt-20 text-center">
+      <div class="inline-block p-6 px-10 bg-[#f8faff] rounded-[30px] shadow-clayInner text-[13px] font-black text-[#1C398E]/40 uppercase tracking-widest" style="font-family: 'JetBrains Mono', monospace;">
+        See more on our <a href="/projects" class="text-[#3B82F6] hover:underline decoration-2">Full Projects Page</a>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  /* Clay Foundations */
+  .shadow-clayCard {
+    box-shadow: 
+      12px 12px 24px rgba(28, 57, 142, 0.08),
+      -8px -8px 16px rgba(255, 255, 255, 1),
+      inset 4px 4px 10px rgba(255, 255, 255, 0.8),
+      inset -4px -4px 10px rgba(28, 57, 142, 0.02);
+  }
+
+  .shadow-clayFloating {
+    box-shadow: 
+      20px 20px 40px rgba(28, 57, 142, 0.12),
+      -12px -12px 24px rgba(255, 255, 255, 1);
+  }
+
+  .shadow-clayButton {
+    box-shadow: 
+      6px 6px 12px rgba(28, 57, 142, 0.06),
+      -6px -6px 12px rgba(255, 255, 255, 1),
+      inset 3px 3px 6px rgba(255, 255, 255, 0.6),
+      inset -3px -3px 6px rgba(28, 57, 142, 0.02);
+  }
+
+  .shadow-clayInner {
+    box-shadow: 
+      inset 8px 8px 16px rgba(28, 57, 142, 0.06),
+      inset -8px -8px 16px rgba(255, 255, 255, 1);
+  }
+</style>
