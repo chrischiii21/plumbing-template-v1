@@ -1,0 +1,77 @@
+---
+import { Siren, Award } from "lucide-react"
+import { getLocationText } from "@/config/site"
+
+interface Feature {
+  icon: "siren" | "award" | "phone" | "clock" | "shield" | "wrench";
+  text: string;
+}
+
+interface Props {
+  buttonText?: string;
+  buttonHref?: string;
+  phoneLabel?: string;
+  phone?: string;
+  features?: Feature[];
+  borderColor?: string;
+}
+
+const { 
+  buttonText: rawButtonText = "SCHEDULE NOW", 
+  buttonHref = "/contact",
+  phoneLabel: rawPhoneLabel = "Call or Text for Great Service",
+  phone: rawPhone = "{phone}",
+  features: rawFeatures = [
+    { icon: "siren", text: "24/7 Emergency Service" },
+    { icon: "award", text: "Experienced & Certified Technicians" }
+  ],
+  borderColor
+} = Astro.props;
+
+// Process text placeholders
+const buttonText = getLocationText(rawButtonText);
+const phoneLabel = getLocationText(rawPhoneLabel);
+const phone = getLocationText(rawPhone);
+const features = rawFeatures.map(f => ({ ...f, text: getLocationText(f.text) }));
+
+const iconMap = {
+  siren: Siren,
+  award: Award
+};
+
+const borderStyle = borderColor ? `border-top: 4px solid ${borderColor}; border-bottom: 4px solid ${borderColor};` : "";
+---
+
+<section class="py-8 bg-primary text-primary-foreground relative overflow-visible" style={`border-top: 4px solid var(--brand-highlight, #45f9ff); border-bottom: 4px solid var(--brand-highlight, #45f9ff);${borderStyle ? ' ' + borderStyle : ''}`}>
+  <div class="container mx-auto px-4 relative">
+    <img
+      src="/images/plumber.png"
+      alt=""
+      class="hidden md:block absolute bottom-0 left-0 w-28 lg:w-36 -translate-x-4 z-10 pointer-events-none"
+      style="bottom: -2rem;"
+      aria-hidden="true"
+    />
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:pl-36 lg:pl-44" data-animate="fade-up">
+      <div class="flex flex-col sm:flex-row items-center gap-6">
+        <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-8 py-4 text-lg font-semibold hover:bg-accent/90 transition-colors shadow-lg shadow-accent/30">
+          {buttonText}
+        </a>
+        <div class="text-center sm:text-left">
+          <p class="text-sm opacity-90">{phoneLabel}</p>
+          <a href={`tel:${phone}`} class="text-2xl font-bold hover:underline">{phone}</a>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-6">
+        {features.map((feature) => {
+          const IconComponent = iconMap[feature.icon as keyof typeof iconMap];
+          return (
+            <div class="flex items-center gap-2">
+              {IconComponent && <IconComponent className="w-6 h-6" />}
+              <span class="text-sm font-medium">{feature.text}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>

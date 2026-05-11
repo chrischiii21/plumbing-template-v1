@@ -1,0 +1,107 @@
+---
+interface Badge {
+  name: string;
+  image: string;
+  alt?: string;
+  small?: boolean;
+}
+
+interface Props {
+  badges?: Badge[];
+}
+
+const { badges = [
+  { name: "BBB & Angie's List", image: "/images/trust-badges/BBB_Angies-List.webp" },
+  { name: "Google Reviews", image: "/images/trust-badges/google-review.webp" },
+  { name: "Nextdoor", image: "/images/trust-badges/Nextdoor-logo.webp", small: true },
+  { name: "HomeAdvisor", image: "/images/trust-badges/HomeAdvisor.webp" },
+  { name: "BBB A+", image: "/images/trust-badges/bbb-logo-a-plus.webp" },
+  { name: "Google Reviews 2", image: "/images/trust-badges/google-review.webp" },
+] } = Astro.props;
+
+// Triple the badges for extra smooth seamless loop
+const duplicatedBadges = [...badges, ...badges, ...badges];
+---
+
+<section class="py-8 bg-brand-tertiary dark:bg-brand-primary/40 overflow-hidden" style="border-top: 2px solid var(--brand-highlight, #45f9ff); border-bottom: 2px solid var(--brand-highlight, #45f9ff);">
+  <div class="carousel-container">
+    <div class="carousel-track">
+      {duplicatedBadges.map((badge) => (
+        <div class="carousel-item">
+          <img 
+            src={badge.image} 
+            alt={badge.alt || badge.name}
+            class={badge.small ? 'small' : ''}
+            width={badge.small ? 70 : 120}
+            height={badge.small ? 35 : 50}
+            loading="eager"
+            decoding="async"
+            fetchpriority="low"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .carousel-container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+    will-change: transform;
+  }
+
+  .carousel-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-item img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .carousel-item img.small {
+    height: 35px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(calc(-100% / 3), 0, 0);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .carousel-track {
+      gap: 5rem;
+    }
+    
+    .carousel-item img {
+      height: 60px;
+    }
+
+    .carousel-item img.small {
+      height: 42px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,540 @@
+---
+import { getLocationText } from "@/config/site"
+
+interface HeroSlide {
+  title: string;
+  subtitle?: string;
+  image: string;
+  promoTitle?: string;
+  promoText?: string;
+  promoImage?: string;
+  buttonText?: string;
+}
+
+interface Props {
+  badge?: string;
+  title: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  image?: string;
+  slides?: HeroSlide[];
+  variant?: "default" | "subpage" | "category";
+}
+
+interface Props {
+  badge?: string;
+  title: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  image?: string;
+  slides?: HeroSlide[];
+  variant?: "default" | "subpage" | "category";
+  trustIndicators?: string[];
+}
+
+const {
+  badge,
+  title: rawTitle,
+  subtitle: rawSubtitle,
+  buttonText: rawButtonText = "Call Now",
+  buttonHref: rawButtonHref = "tel:{phoneRaw}",
+  image,
+  slides: rawSlides = [],
+  variant = "default",
+  trustIndicators: rawTrustIndicators,
+} = Astro.props;
+
+// Process all text placeholders
+const title = rawTitle ? getLocationText(rawTitle) : "";
+const subtitle = rawSubtitle ? getLocationText(rawSubtitle) : undefined;
+const badge_processed = badge ? getLocationText(badge) : undefined;
+const buttonText = getLocationText(rawButtonText);
+const buttonHref = getLocationText(rawButtonHref);
+const trustIndicators = rawTrustIndicators ? rawTrustIndicators.map(t => getLocationText(t)) : undefined;
+
+// Process slide text
+const slides = rawSlides.map(slide => ({
+  ...slide,
+  title: getLocationText(slide.title),
+  subtitle: slide.subtitle ? getLocationText(slide.subtitle) : undefined,
+  promoTitle: slide.promoTitle ? getLocationText(slide.promoTitle) : undefined,
+  promoText: slide.promoText ? getLocationText(slide.promoText) : undefined,
+  promoImage: slide.promoImage || undefined,
+  buttonText: slide.buttonText ? getLocationText(slide.buttonText) : undefined,
+}));
+
+const hasSlideshow = slides.length > 1;
+---
+
+{variant === "subpage" ? (
+  <section class="subpage-hero relative bg-primary overflow-hidden">
+    {/* Subtle teal gradient overlay for depth */}
+    <div class="absolute inset-0 opacity-[0.07]" style="background: radial-gradient(ellipse at 30% 50%, var(--brand-highlight, #45f9ff), transparent 70%);"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid md:grid-cols-2 min-h-[420px] md:min-h-[480px]">
+        <div class="relative flex items-center py-14 md:py-20 pr-8">
+          {badge_processed && (
+            <div class="absolute top-0 left-0 right-0 pt-8">
+              <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style="color: var(--brand-highlight, #45f9ff);">
+                <span class="w-8 h-px" style="background: var(--brand-highlight, #45f9ff); opacity: 0.6;"></span>
+                {badge_processed}
+              </span>
+            </div>
+          )}
+          <div class="pt-8">
+            {/* Teal accent bar above title */}
+            <div class="w-12 h-1 rounded-full mb-5" style="background: var(--brand-highlight, #45f9ff);"></div>
+
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-5 leading-tight">
+              {title}
+            </h1>
+            {subtitle && (
+              <p class="text-lg text-primary-foreground/75 mb-8 max-w-lg leading-relaxed" set:html={subtitle} />
+            )}
+
+            <div class="flex flex-wrap items-center gap-4">
+              <a href={buttonHref} class="subpage-hero-cta inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-7 py-3.5 font-semibold transition-all duration-300 shadow-lg shadow-accent/25">
+                {buttonText}
+              </a>
+            </div>
+
+            {/* Trust indicators row */}
+            {trustIndicators && trustIndicators.length > 0 && (
+              <div class="flex flex-wrap gap-x-5 gap-y-2 mt-8">
+                {trustIndicators.map((indicator) => (
+                  <span class="inline-flex items-center gap-2 text-sm text-primary-foreground/60">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background: var(--brand-highlight, #45f9ff);"></span>
+                    {indicator}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        <div class="hidden md:block relative -mr-4 md:-mr-[calc((100vw-100%)/2+1rem)]">
+          {image ? (
+            <Fragment>
+              <img src={image} alt={title} class="absolute inset-0 w-full h-full object-cover" />
+              {/* Teal edge glow where image meets content */}
+              <div class="absolute inset-y-0 left-0 w-24" style="background: linear-gradient(to right, var(--brand-primary), transparent);"></div>
+              {/* Bottom teal accent line */}
+              <div class="absolute bottom-0 left-0 right-0 h-[3px]" style="background: linear-gradient(to right, var(--brand-highlight, #45f9ff), transparent 60%);"></div>
+            </Fragment>
+          ) : (
+            <div class="absolute inset-0 bg-muted flex items-center justify-center">
+              <span class="text-muted-foreground">Hero Image</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom teal accent line spanning full width */}
+    <div class="absolute bottom-0 left-0 right-0 h-[3px] z-20" style="background: linear-gradient(to right, var(--brand-highlight, #45f9ff) 0%, var(--brand-highlight, #45f9ff) 40%, transparent 70%);"></div>
+  </section>
+) : variant === "category" ? (
+  <!-- Category hero: gradient background with side image -->
+  <section class="relative bg-gradient-to-br from-primary/10 to-background py-20 md:py-32">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="text-center md:text-left">
+          {badge && (
+            <span class="inline-block bg-destructive text-white text-sm font-semibold px-4 py-2 rounded-full mb-6">
+              {badge}
+            </span>
+          )}
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            {title}
+          </h1>
+          {subtitle && (
+            <p class="text-xl text-muted-foreground mb-8" set:html={subtitle} />
+          )}
+          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-8 py-4 text-lg font-semibold hover:bg-primary/90 transition-colors">
+            {buttonText}
+          </a>
+        </div>
+        <div class="hidden md:block">
+          {image ? (
+            <img src={image} alt={title} class="rounded-lg w-full aspect-video object-cover" />
+          ) : (
+            <div class="aspect-video bg-muted rounded-lg flex items-center justify-center">
+              <span class="text-muted-foreground">Hero Image</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+) : slides.length > 0 ? (
+  <!-- Slideshow hero -->
+  <section class="hero-slideshow relative overflow-hidden bg-primary" style="min-height: 540px;">
+    <!-- Background images -->
+    {slides.map((slide, i) => (
+      <div
+        class:list={[
+          "hero-bg absolute inset-0 transition-opacity duration-1000 ease-in-out",
+          i === 0 ? "opacity-100" : "opacity-0"
+        ]}
+        data-bg-index={i}
+      >
+        <img
+          src={slide.image}
+          alt={slide.title}
+          class="absolute inset-0 w-full h-full object-cover"
+          loading={i === 0 ? "eager" : "lazy"}
+          fetchpriority={i === 0 ? "high" : "low"}
+          decoding="async"
+        />
+        <div class="absolute inset-0 bg-primary/85"></div>
+      </div>
+    ))}
+
+    <!-- Content layer -->
+    <div class="relative z-10 container mx-auto px-4 py-16 md:py-24 lg:py-28">
+      <div class="grid md:grid-cols-5 gap-8 lg:gap-12 items-center min-h-[380px]">
+
+        <!-- Left: text content -->
+        <div class="md:col-span-3 relative" style="min-height: 260px;">
+          {slides.map((slide, i) => (
+            <div
+              class:list={[
+                "hero-text absolute inset-0 flex flex-col justify-center transition-all duration-700",
+                i === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              ]}
+              data-text-index={i}
+            >
+              <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-foreground mb-4 leading-tight">
+                {slide.title}
+              </h1>
+              {slide.subtitle && (
+                <p class="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-xl">
+                  {slide.subtitle}
+                </p>
+              )}
+              <div>
+                <a
+                  href={buttonHref}
+                  class="inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-8 py-4 text-lg font-semibold hover:bg-accent/90 transition-colors shadow-lg shadow-accent/30"
+                >
+                  {slide.buttonText || buttonText}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Right: promo box -->
+        <div class="md:col-span-2 hidden md:flex justify-center md:justify-center relative" style="min-height: 260px;">
+          {slides.map((slide, i) => (
+            slide.promoTitle && (
+              <div
+                class:list={[
+                  "hero-promo absolute inset-0 flex items-center justify-center md:justify-center transition-all duration-700",
+                  i === 0 ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                ]}
+                data-promo-index={i}
+              >
+                <div class="promo-card relative max-w-[340px] w-full">
+                  <!-- Pulsing glow behind card -->
+                  <div class="promo-glow absolute -inset-4 rounded-2xl blur-2xl" style="background: var(--brand-highlight, var(--brand-secondary));"></div>
+
+                  <!-- Outer solid border (navy) -->
+                  <div class="relative rounded-lg overflow-hidden shadow-[0_30px_80px_-15px_rgba(0,0,0,0.6)]" style="background: var(--brand-primary); padding: 4px;">
+
+                    <!-- Dashed border layer -->
+                    <div class="rounded-md" style="border: 3px dashed var(--brand-secondary); background: white;">
+
+                      <!-- Decorative circles -->
+                      <div class="absolute -top-6 -left-6 w-28 h-28 rounded-full opacity-30" style="background: var(--brand-tertiary);"></div>
+                      <div class="absolute -bottom-8 -right-8 w-32 h-32 rounded-full opacity-25" style="background: var(--brand-tertiary);"></div>
+
+                      <!-- Card content -->
+                      <div class="relative px-6 pt-6 pb-5 text-center">
+                        <!-- "Coupon" heading -->
+                        <p class="text-xs font-bold uppercase tracking-[0.2em] mb-1" style="color: var(--brand-primary);">
+                          <span class="relative inline-flex items-center gap-1.5">
+                            <span class="relative flex h-1.5 w-1.5">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full" style="background: var(--brand-accent); opacity: 0.6;"></span>
+                              <span class="relative inline-flex rounded-full h-1.5 w-1.5" style="background: var(--brand-accent);"></span>
+                            </span>
+                            Limited Offer
+                          </span>
+                        </p>
+
+                        <!-- Promo image -->
+                        {slide.promoImage && (
+                          <div class="w-full h-24 rounded-md overflow-hidden mb-3">
+                            <img src={slide.promoImage} alt="" class="w-full h-full object-cover" loading="lazy" />
+                          </div>
+                        )}
+
+                        <h3 class="promo-coupon-title text-3xl md:text-4xl font-black leading-tight mb-3" style="color: var(--brand-secondary);">
+                          Special Deal
+                        </h3>
+                        <p class="text-xs mb-4" style="color: var(--brand-primary); opacity: 0.7;">Redeem &amp; Save Today</p>
+
+                        <!-- Discount value box -->
+                        <div class="promo-value-box inline-flex items-baseline gap-1 rounded-md px-5 py-2.5 mb-4" style="background: var(--brand-primary);">
+                          <span class="promo-value text-3xl md:text-4xl font-black leading-none tracking-tight text-white">
+                            {slide.promoTitle}
+                          </span>
+                        </div>
+
+                        <!-- Description -->
+                        <p class="text-sm leading-relaxed font-medium mb-1" style="color: var(--brand-primary);">
+                          {slide.promoText}
+                        </p>
+                      </div>
+
+                      <!-- Dashed divider -->
+                      <div class="mx-4 mb-0" style="border-top: 2px dashed var(--brand-secondary); opacity: 0.35;"></div>
+
+                      <!-- Footer with expiry -->
+                      <div class="relative px-6 py-3 text-center">
+                        <p class="text-xs font-semibold italic" style="color: var(--brand-accent);">
+                          * Call now to redeem
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          ))}
+        </div>
+      </div>
+
+      <!-- Progress bar indicators -->
+      {hasSlideshow && (
+        <div class="hero-progress flex gap-3 mt-8 max-w-xs">
+          {slides.map((_, i) => (
+            <button
+              type="button"
+              class="hero-progress-bar group relative h-1 flex-1 rounded-full bg-primary-foreground/20 overflow-hidden cursor-pointer"
+              data-progress-index={i}
+              aria-label={`Go to slide ${i + 1}`}
+            >
+              <span
+                class:list={[
+                  "hero-fill absolute inset-y-0 left-0 bg-accent rounded-full",
+                  i === 0 ? "w-0 animate-hero-fill" : "w-0"
+                ]}
+                data-fill-index={i}
+              ></span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+) : (
+  <!-- Static single-image hero (original) -->
+  <section class="relative bg-gradient-to-br from-primary/10 to-background py-20 md:py-32">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="text-center md:text-left">
+          {badge && (
+            <span class="inline-block bg-destructive text-white text-sm font-semibold px-4 py-2 rounded-full mb-6">
+              {badge}
+            </span>
+          )}
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            {title}
+          </h1>
+          {subtitle && (
+            <p class="text-xl text-muted-foreground mb-8" set:html={subtitle} />
+          )}
+          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-8 py-4 text-lg font-semibold hover:bg-primary/90 transition-colors">
+            {buttonText}
+          </a>
+        </div>
+        <div class="hidden md:block">
+          {image ? (
+            <img src={image} alt={title} class="rounded-lg w-full" />
+          ) : (
+            <div class="aspect-video bg-muted rounded-lg flex items-center justify-center">
+              <span class="text-muted-foreground">Hero Image</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  /* Subpage hero styles */
+  .subpage-hero-cta {
+    position: relative;
+  }
+  .subpage-hero-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px -5px color-mix(in srgb, var(--brand-accent) 40%, transparent);
+  }
+
+  @keyframes hero-fill {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+  .animate-hero-fill {
+    animation: hero-fill 5s linear forwards;
+    background: linear-gradient(90deg, var(--brand-accent), var(--brand-highlight, #45f9ff));
+  }
+
+  /* Promo card shimmer on the discount value */
+  .promo-value {
+    background: linear-gradient(
+      110deg,
+      #ffffff 0%,
+      #ffffff 35%,
+      var(--brand-highlight, var(--brand-secondary)) 50%,
+      #ffffff 65%,
+      #ffffff 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: promo-shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes promo-shimmer {
+    0%, 100% { background-position: 100% center; }
+    50% { background-position: 0% center; }
+  }
+
+  /* Coupon title color pulse */
+  .promo-coupon-title {
+    animation: coupon-title-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes coupon-title-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  /* Value box subtle scale pulse */
+  .promo-value-box {
+    animation: value-box-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes value-box-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  /* Float animation for the card */
+  .promo-card {
+    animation: promo-float 4s ease-in-out infinite;
+  }
+
+  @keyframes promo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Pulsing outer glow */
+  .promo-glow {
+    animation: promo-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes promo-pulse {
+    0%, 100% { opacity: 0.15; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.06); }
+  }
+</style>
+
+{hasSlideshow && (
+  <script>
+    function initHeroSlideshow() {
+      const bgs = document.querySelectorAll<HTMLElement>('.hero-bg');
+      const texts = document.querySelectorAll<HTMLElement>('.hero-text');
+      const promos = document.querySelectorAll<HTMLElement>('.hero-promo');
+      const fills = document.querySelectorAll<HTMLElement>('.hero-fill');
+      const bars = document.querySelectorAll<HTMLButtonElement>('.hero-progress-bar');
+
+      if (bgs.length < 2) return;
+
+      let current = 0;
+      const total = bgs.length;
+      const duration = 5000;
+      let timer: ReturnType<typeof setTimeout>;
+
+      function goTo(index: number) {
+        // Background crossfade
+        bgs.forEach((bg, i) => {
+          bg.classList.toggle('opacity-100', i === index);
+          bg.classList.toggle('opacity-0', i !== index);
+        });
+
+        // Text slide
+        texts.forEach((t, i) => {
+          if (i === index) {
+            t.classList.remove('opacity-0', 'translate-y-4');
+            t.classList.add('opacity-100', 'translate-y-0');
+          } else {
+            t.classList.remove('opacity-100', 'translate-y-0');
+            t.classList.add('opacity-0', 'translate-y-4');
+          }
+        });
+
+        // Promo box
+        promos.forEach((p, i) => {
+          if (i === index) {
+            p.classList.remove('opacity-0', 'scale-95');
+            p.classList.add('opacity-100', 'scale-100');
+          } else {
+            p.classList.remove('opacity-100', 'scale-100');
+            p.classList.add('opacity-0', 'scale-95');
+          }
+        });
+
+        // Progress fills
+        fills.forEach((f, i) => {
+          f.classList.remove('animate-hero-fill');
+          f.style.width = i < index ? '100%' : '0%';
+          if (i === index) {
+            // Force reflow to restart animation
+            void f.offsetWidth;
+            f.style.width = '';
+            f.classList.add('animate-hero-fill');
+          }
+        });
+
+        current = index;
+      }
+
+      function next() {
+        goTo((current + 1) % total);
+        scheduleNext();
+      }
+
+      function scheduleNext() {
+        clearTimeout(timer);
+        timer = setTimeout(next, duration);
+      }
+
+      // Click on progress bars
+      bars.forEach((bar) => {
+        bar.addEventListener('click', () => {
+          const idx = Number(bar.dataset.progressIndex);
+          goTo(idx);
+          scheduleNext();
+        });
+      });
+
+      // Start autoplay
+      scheduleNext();
+    }
+
+    document.addEventListener('astro:page-load', initHeroSlideshow);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeroSlideshow);
+    } else {
+      initHeroSlideshow();
+    }
+  </script>
+)}

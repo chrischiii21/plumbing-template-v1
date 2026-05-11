@@ -1,0 +1,117 @@
+---
+import { getLocationText } from "@/config/site"
+
+interface Props {
+  badge?: string;
+  title: string;
+  description: string;
+  features?: string[];
+  buttonText?: string;
+  buttonHref?: string;
+  imagePosition?: "left" | "right";
+  images?: string[];
+  imageAlts?: string[];
+}
+
+const { 
+  badge: raw_badge, 
+  title: raw_title, 
+  description: raw_description, 
+  features = [], 
+  buttonText, 
+  buttonHref,
+  imagePosition = "left",
+  images = [],
+  imageAlts = []
+} = Astro.props;
+
+// Process text placeholders
+const title = raw_title ? getLocationText(raw_title) : raw_title;
+const description = raw_description ? getLocationText(raw_description) : raw_description;
+const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
+---
+
+<section class="py-16 md:py-24 bg-muted/30">
+  <div class="container mx-auto px-4">
+    <div class={`grid md:grid-cols-2 gap-12 items-center ${imagePosition === "right" ? "md:flex-row-reverse" : ""}`}>
+      {imagePosition === "left" && (
+        <div class="grid grid-cols-2 gap-4" data-animate="fade-right">
+          {images.length > 0 ? (
+            images.map((img, i) => (
+              <div class="aspect-square rounded-lg overflow-hidden">
+                <img 
+                  src={img.includes('ucarecdn.com') ? img.replace(/\/preview\/\d+x\d+/, '/preview/480x480').concat('-/format/webp/') : img} 
+                  alt={imageAlts[i] || `${title} - photo ${i + 1}`} 
+                  class="w-full h-full object-cover" 
+                  loading="lazy"
+                  width="480"
+                  height="480"
+                  decoding="async"
+                />
+              </div>
+            ))
+          ) : (
+            <>
+              <div class="aspect-square bg-muted rounded-lg flex items-center justify-center">
+                <span class="text-muted-foreground text-sm">Image 1</span>
+              </div>
+              <div class="aspect-square bg-muted rounded-lg flex items-center justify-center">
+                <span class="text-muted-foreground text-sm">Image 2</span>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+      <div data-animate="fade-up">
+        {badge && (
+          <span class="inline-block text-sm font-semibold text-accent uppercase tracking-wide border-b-2 border-accent pb-1">{badge}</span>
+        )}
+        <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-6">{title}</h2>
+        <p class="text-muted-foreground mb-8" set:html={description} />
+        {features.length > 0 && (
+          <ul class="space-y-4 mb-8">
+            {features.map((feature) => (
+              <li class="flex items-center gap-3">
+                <span class="w-6 h-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold">✓</span>
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {buttonText && buttonHref && (
+          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-semibold hover:bg-primary/90 transition-colors">
+            {buttonText}
+          </a>
+        )}
+      </div>
+      {imagePosition === "right" && (
+        <div class="grid grid-cols-2 gap-4" data-animate="fade-left">
+          {images.length > 0 ? (
+            images.map((img, i) => (
+              <div class="aspect-square rounded-lg overflow-hidden">
+                <img 
+                  src={img.includes('ucarecdn.com') ? img.replace(/\/preview\/\d+x\d+/, '/preview/480x480').concat('-/format/webp/') : img} 
+                  alt={imageAlts[i] || `${title} - photo ${i + 1}`} 
+                  class="w-full h-full object-cover" 
+                  loading="lazy"
+                  width="480"
+                  height="480"
+                  decoding="async"
+                />
+              </div>
+            ))
+          ) : (
+            <>
+              <div class="aspect-square bg-muted rounded-lg flex items-center justify-center">
+                <span class="text-muted-foreground text-sm">Image 1</span>
+              </div>
+              <div class="aspect-square bg-muted rounded-lg flex items-center justify-center">
+                <span class="text-muted-foreground text-sm">Image 2</span>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

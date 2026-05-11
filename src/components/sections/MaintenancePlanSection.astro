@@ -1,0 +1,66 @@
+---
+import { getLocationText } from "@/config/site"
+
+interface IncludedItem {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  includedItems: IncludedItem[];
+  benefits: string[];
+  buttonText?: string;
+  buttonHref?: string;
+}
+
+const { title: raw_title, description: raw_description, includedItems, benefits, buttonText = "LEARN MORE", buttonHref = "/maintenance-plans" } = Astro.props;
+
+// Process text placeholders
+const title = raw_title ? getLocationText(raw_title) : raw_title;
+const description = raw_description ? getLocationText(raw_description) : raw_description;
+---
+
+<section class="py-16 md:py-24 bg-primary/5">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12" data-animate="fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
+      <p class="text-muted-foreground max-w-3xl mx-auto" set:html={description} />
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto" data-animate-stagger>
+      <div class="bg-card border rounded-lg p-8">
+        <h3 class="text-xl font-bold mb-6">What's Included in Our Maintenance Plans?</h3>
+        <ul class="space-y-4">
+          {includedItems.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></span>
+              <div>
+                <span class="font-semibold">{item.title}</span>
+                <p class="text-sm text-muted-foreground" set:html={item.description} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <div class="bg-card border rounded-lg p-8 flex flex-col">
+        <h3 class="text-xl font-bold mb-6">Why Invest in a Maintenance Plan?</h3>
+        <ul class="space-y-4">
+          {benefits.map((benefit) => (
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm shrink-0 mt-0.5 font-bold">✓</span>
+              <span>{benefit}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-auto pt-8">
+          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-semibold hover:bg-primary/90 transition-colors">
+            {buttonText}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

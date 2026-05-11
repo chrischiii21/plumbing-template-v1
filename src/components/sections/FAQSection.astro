@@ -1,0 +1,49 @@
+---
+import { getLocationText } from "@/config/site"
+
+interface FAQItem {
+  question: string;
+  answer?: string;
+}
+
+interface Props {
+  title: string;
+  faqs: FAQItem[];
+}
+
+const { title: raw_title, faqs: rawFaqs } = Astro.props;
+
+// Process text placeholders
+const title = raw_title ? getLocationText(raw_title) : "";
+const faqs = rawFaqs.map(faq => ({
+  ...faq,
+  question: getLocationText(faq.question),
+  answer: faq.answer ? getLocationText(faq.answer) : undefined,
+}));
+---
+
+<section class="py-16 md:py-24 bg-muted/30">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" data-animate="fade-up">{title}</h2>
+      
+      <div class="space-y-4" data-animate-stagger>
+        {faqs.map((faq, index) => (
+          <details class="group bg-card border border-l-4 border-l-accent rounded-lg overflow-hidden">
+            <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-muted/50 transition-colors">
+              <span class="font-semibold pr-4">{faq.question}</span>
+              <span class="shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary group-open:rotate-180 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </span>
+            </summary>
+            {faq.answer && (
+              <div class="px-6 pb-6 text-muted-foreground" set:html={faq.answer} />
+            )}
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
