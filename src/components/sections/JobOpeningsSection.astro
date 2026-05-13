@@ -1,5 +1,6 @@
 ---
-import { getLocationText } from "@/config/site"
+import { getLocationText } from "@/config/brand-settings"
+import { ArrowRight, UserCheck } from "lucide-react"
 
 interface JobOpening {
   title: string;
@@ -18,7 +19,7 @@ interface Props {
   introDescription?: string;
 }
 
-const { badge: raw_badge, title: raw_title, description: raw_description, jobs, introTitle: raw_introTitle, introDescription: raw_introDescription } = Astro.props;
+const { badge: raw_badge = "Join Our Team", title: raw_title, description: raw_description, jobs, introTitle: raw_introTitle, introDescription: raw_introDescription } = Astro.props;
 
 // Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
@@ -28,36 +29,146 @@ const introTitle = raw_introTitle ? getLocationText(raw_introTitle) : raw_introT
 const introDescription = raw_introDescription ? getLocationText(raw_introDescription) : raw_introDescription;
 ---
 
-<section class="py-16 md:py-24 bg-muted/30">
-  <div class="container mx-auto px-4">
-    {introTitle && (
-      <div class="text-center mb-12" data-animate="fade-up">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">{introTitle}</h2>
-        {introDescription && <p class="text-muted-foreground text-balance mx-auto" set:html={introDescription} />}
+<!-- Claymorphism Design System Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<section class="py-24 md:py-32 bg-[#F8FAFC] relative overflow-hidden">
+  {/* Ambient Depth Elements */}
+  <div class="absolute top-0 right-0 w-[40%] h-[40%] bg-[#3B82F6]/5 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
+  <div class="absolute bottom-0 left-0 w-[30%] h-[30%] bg-[#16A34A]/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Intro Section -->
+    {(introTitle || introDescription) && (
+      <div class="max-w-4xl mx-auto text-center mb-24 md:mb-32" data-animate="fade-up">
+        <div class="inline-flex items-center gap-3 bg-white px-6 py-2 rounded-full clay-badge mb-8">
+          <UserCheck className="w-4 h-4 text-[#3B82F6]" />
+          <span class="text-[0.65rem] font-mono font-bold uppercase tracking-[0.25em] text-[#3B82F6]">{badge}</span>
+        </div>
+        {introTitle && <h2 class="clay-title text-4xl md:text-6xl font-black text-[#1C398E] mb-8 leading-tight tracking-tighter">{introTitle}</h2>}
+        {introDescription && <p class="clay-subtitle text-lg md:text-xl text-[#1C398E]/60 max-w-3xl mx-auto font-medium leading-relaxed" set:html={introDescription} />}
       </div>
     )}
 
-    <div class="text-center mb-12">
-      <h3 class="text-2xl md:text-3xl font-bold mb-4">{title}</h3>
-      {description && <p class="text-muted-foreground max-w-3xl mx-auto" set:html={description} />}
+    <!-- Secondary Header -->
+    <div class="text-center mb-16" data-animate="fade-up">
+      <h3 class="clay-title text-3xl md:text-4xl font-black text-[#1C398E] mb-6 uppercase tracking-tight">{title}</h3>
+      {description && <p class="clay-subtitle text-[#1C398E]/50 max-w-2xl mx-auto font-medium" set:html={description} />}
+      <div class="w-20 h-1.5 bg-[#3B82F6] mx-auto mt-8 rounded-full shadow-sm"></div>
     </div>
     
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-animate-stagger>
+    <!-- Job Cards Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10" data-animate-stagger>
       {jobs.map((job) => (
-        <div class="bg-muted/50 border-l-4 border-accent rounded-lg p-6">
-          <h3 class="text-lg font-bold text-accent mb-2">{job.title}</h3>
-          <p class="text-sm text-muted-foreground mb-3">{job.type || "Full-time position"}</p>
-          <p class="text-sm text-muted-foreground mb-6">
-            <span class="font-semibold text-foreground">Responsibilities:</span> {job.responsibilities}
-          </p>
+        <div class="clay-card group p-8 md:p-10 flex flex-col h-full hover:-translate-y-3 transition-all duration-500 will-change-transform transform-gpu">
+          <!-- Job Header -->
+          <div class="mb-8">
+            <div class="mb-4">
+              <div class="inline-block bg-[#3B82F6]/10 px-3 py-1 rounded-full">
+                <span class="text-[10px] font-mono font-bold text-[#3B82F6] uppercase tracking-widest">{job.type || "Full-time"}</span>
+              </div>
+            </div>
+            <h4 class="clay-title text-2xl font-black text-[#1C398E] leading-tight group-hover:text-[#3B82F6] transition-colors">{job.title}</h4>
+          </div>
+
+          <!-- Responsibilities Groove -->
+          <div class="clay-inner-groove p-6 rounded-[2rem] mb-10 flex-grow">
+            <p class="clay-subtitle text-xs font-bold text-[#3B82F6] uppercase tracking-widest mb-3">
+              Responsibilities:
+            </p>
+            <p class="clay-subtitle text-sm text-[#1C398E]/60 font-semibold leading-relaxed line-clamp-4">
+              {job.responsibilities}
+            </p>
+          </div>
+
+          <!-- Apply Button -->
           <a 
             href={job.buttonHref || "/contact"} 
-            class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold hover:bg-primary/90 transition-colors"
+            class="clay-button-primary w-full py-4 rounded-[1.5rem] font-black uppercase tracking-[0.15em] text-xs group/btn mt-auto"
           >
-            {job.buttonText || "APPLY NOW"}
+            <span class="flex items-center justify-center gap-2">
+              {job.buttonText || "APPLY NOW"}
+              <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+            </span>
           </a>
         </div>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  .clay-card {
+    background: #ffffff;
+    border-radius: 3rem;
+    box-shadow: 
+      inset -10px -10px 20px rgba(0, 0, 0, 0.02), 
+      inset 10px 10px 20px rgba(255, 255, 255, 0.9),
+      20px 40px 80px rgba(28, 57, 142, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+
+  .clay-inner-groove {
+    background: #F8FAFC;
+    box-shadow: 
+      inset 6px 6px 12px rgba(28, 57, 142, 0.05),
+      inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+  }
+
+  .clay-badge {
+    box-shadow: 
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05), 
+      inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+      4px 8px 16px rgba(28, 57, 142, 0.05);
+  }
+
+  .clay-inner-card {
+    box-shadow: 
+      inset 4px 4px 8px rgba(28, 57, 142, 0.04),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+  }
+
+  .clay-button-primary {
+    background: #3B82F6;
+    color: #FFFFFF;
+    box-shadow: 
+      inset -4px -4px 8px rgba(0, 0, 0, 0.1), 
+      inset 4px 4px 8px rgba(255, 255, 255, 0.3),
+      0 10px 20px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+  }
+
+  .clay-button-primary:hover {
+    transform: scale(1.05);
+    background: #2563EB;
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+  }
+
+  .clay-button-primary:active {
+    transform: scale(0.95);
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .clay-title {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .clay-subtitle {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  [data-animate-stagger] > * {
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+</style>

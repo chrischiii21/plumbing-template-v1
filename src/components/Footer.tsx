@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config/site"
+import { siteConfig } from "@/config/brand-settings"
 import { Facebook, Mail, MapPin, Phone } from "lucide-react"
 
 // X (Twitter) icon component

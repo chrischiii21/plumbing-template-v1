@@ -4,7 +4,7 @@ import "../styles/global.css"
 import { Navbar } from "@/components/Navbar"
 import { Footer } from "@/components/Footer"
 import ThemeProvider from "@/components/ThemeProvider.astro"
-import { siteConfig } from "@/config/site"
+import { siteConfig } from "@/config/brand-settings"
 import PopupModal from "@/components/ui/PopupModal.astro"
 import FreeScanButton from "@/components/ui/FreeScanButton.astro"
 
@@ -87,9 +87,9 @@ const canonical = new URL(Astro.url.pathname, siteConfig.seo.siteUrl).href
     <ClientRouter />
     <ThemeProvider />
   </head>
-  <body class="min-h-screen flex flex-col">
-    <Navbar client:idle />
-    <main class="flex-1">
+  <body class="min-h-screen flex flex-col overflow-x-hidden w-full">
+    <Navbar client:only="react" />
+    <main class="flex-1 overflow-x-hidden w-full">
       <slot />
     </main>
     <Footer client:visible />

@@ -1,5 +1,5 @@
 ---
-import { getLocationText } from "@/config/site"
+import { getLocationText } from "@/config/brand-settings"
 import { Wallet, CreditCard, CheckCircle2 } from "lucide-react"
 
 interface Step {
@@ -24,53 +24,58 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 ---
 
-<section class="py-24 bg-white relative overflow-hidden">
+<!-- Claymorphism Design System Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<section class="py-24 md:py-32 bg-[#F8FAFC] relative overflow-hidden">
   {/* Ambient Clay Blobs */}
-  <div class="absolute top-1/2 -right-20 w-96 h-96 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 -left-20 w-80 h-80 bg-[#16A34A]/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute top-1/2 -right-20 w-96 h-96 bg-[#3B82F6]/10 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
+  <div class="absolute bottom-0 -left-20 w-80 h-80 bg-[#16A34A]/10 rounded-full blur-[100px] pointer-events-none"></div>
 
   <div class="container mx-auto px-4 relative z-10">
-    <div class="text-center mb-16" data-animate="fade-up">
-      <div class="inline-flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-clayButton mb-6">
-        <Wallet className="w-5 h-5 text-[#3B82F6]" />
-        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#1C398E]" style="font-family: 'JetBrains Mono', monospace;">{badge}</span>
+    <div class="text-center mb-16 md:mb-24" data-animate="fade-up">
+      <div class="inline-flex items-center gap-3 bg-white px-6 py-2 rounded-full clay-badge mb-6">
+        <Wallet className="w-4 h-4 text-[#3B82F6]" />
+        <span class="text-[0.65rem] font-mono font-bold uppercase tracking-[0.25em] text-[#3B82F6]">{badge}</span>
       </div>
-      <h2 class="text-4xl md:text-5xl font-black text-[#1C398E] mb-6 tracking-tight leading-tight" style="font-family: 'Poppins', sans-serif;">{title}</h2>
-      <p class="text-[17px] text-[#1C398E]/60 max-w-3xl mx-auto font-medium leading-relaxed" style="font-family: 'Montserrat', sans-serif;" set:html={description} />
+      <h2 class="clay-title text-4xl md:text-6xl font-black text-[#1C398E] mb-8 tracking-tighter leading-tight">{title}</h2>
+      <p class="clay-subtitle text-lg md:text-xl text-[#1C398E]/60 max-w-3xl mx-auto font-medium leading-relaxed" set:html={description} />
     </div>
     
-    <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto mb-24">
+    <div class="grid md:grid-cols-2 gap-10 lg:gap-16 max-w-5xl mx-auto mb-32">
       {/* Payment Plans Card */}
-      <div class="bg-white rounded-[40px] p-10 shadow-clayCard group transition-all duration-500 hover:-translate-y-2" data-animate="fade-right">
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-12 h-12 rounded-full bg-[#3B82F6]/10 flex items-center justify-center shadow-clayButton text-[#3B82F6]">
+      <div class="clay-card group transition-all duration-500 will-change-transform" data-animate="fade-right">
+        <div class="flex items-center gap-5 mb-10 transform-gpu">
+          <div class="w-14 h-14 rounded-full bg-[#3B82F6]/10 flex items-center justify-center clay-badge text-[#3B82F6] group-hover:scale-110 transition-transform">
             <CreditCard className="w-6 h-6" />
           </div>
-          <h3 class="text-xl font-black text-[#1C398E]" style="font-family: 'Poppins', sans-serif;">Flexible Payment Plans</h3>
+          <h3 class="clay-title text-2xl font-black text-[#1C398E]">Flexible Payment Plans</h3>
         </div>
-        <ul class="space-y-4">
+        <ul class="space-y-4 transform-gpu">
           {paymentPlans.map((plan) => (
-            <li class="flex items-center gap-4 p-4 bg-[#f8faff] rounded-[24px] shadow-clayInner group-hover:shadow-clayButton transition-all">
-              <div class="w-3 h-3 rounded-full bg-[#3B82F6] shadow-clayButton"></div>
-              <span class="text-sm font-black text-[#1C398E] uppercase tracking-wide leading-tight">{plan}</span>
+            <li class="flex items-center gap-4 p-5 bg-[#f8faff]/50 rounded-[28px] clay-inner-card group-hover:bg-white transition-all">
+              <div class="w-4 h-4 rounded-full bg-[#3B82F6] clay-dot"></div>
+              <span class="text-sm font-bold text-[#1C398E] uppercase tracking-wide leading-tight clay-subtitle">{plan}</span>
             </li>
           ))}
         </ul>
       </div>
       
       {/* Financing Options Card */}
-      <div class="bg-white rounded-[40px] p-10 shadow-clayCard group transition-all duration-500 hover:-translate-y-2" data-animate="fade-left">
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-12 h-12 rounded-full bg-[#16A34A]/10 flex items-center justify-center shadow-clayButton text-[#16A34A]">
+      <div class="clay-card group transition-all duration-500 will-change-transform" data-animate="fade-left">
+        <div class="flex items-center gap-5 mb-10 transform-gpu">
+          <div class="w-14 h-14 rounded-full bg-[#16A34A]/10 flex items-center justify-center clay-badge text-[#16A34A] group-hover:scale-110 transition-transform">
             <CheckCircle2 className="w-6 h-6" />
           </div>
-          <h3 class="text-xl font-black text-[#1C398E]" style="font-family: 'Poppins', sans-serif;">What Can You Finance?</h3>
+          <h3 class="clay-title text-2xl font-black text-[#1C398E]">What Can You Finance?</h3>
         </div>
-        <ul class="space-y-4">
+        <ul class="space-y-4 transform-gpu">
           {financingOptions.map((option) => (
-            <li class="flex items-center gap-4 p-4 bg-[#f8faff] rounded-[24px] shadow-clayInner group-hover:shadow-clayButton transition-all">
-              <div class="w-3 h-3 rounded-full bg-[#16A34A] shadow-clayButton"></div>
-              <span class="text-sm font-black text-[#1C398E] uppercase tracking-wide leading-tight">{option}</span>
+            <li class="flex items-center gap-4 p-5 bg-[#f8faff]/50 rounded-[28px] clay-inner-card group-hover:bg-white transition-all">
+              <div class="w-4 h-4 rounded-full bg-[#16A34A] clay-dot-success"></div>
+              <span class="text-sm font-bold text-[#1C398E] uppercase tracking-wide leading-tight clay-subtitle">{option}</span>
             </li>
           ))}
         </ul>
@@ -78,22 +83,22 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
     </div>
     
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <h3 class="text-2xl font-black text-[#1C398E] uppercase tracking-widest bg-white inline-block px-10 py-3 rounded-full shadow-clayButton" style="font-family: 'Poppins', sans-serif;" data-animate="fade-up">How to Apply</h3>
+      <div class="text-center mb-16 md:mb-20">
+        <h3 class="clay-title text-2xl md:text-3xl font-black text-[#1C398E] uppercase tracking-widest bg-white inline-block px-12 py-4 rounded-full clay-badge" data-animate="fade-up">How to Apply</h3>
       </div>
       
-      <div class="relative grid md:grid-cols-3 gap-10">
-        {/* Connecting Line */}
-        <div class="hidden md:block absolute top-[34px] left-[15%] right-[15%] h-2 rounded-full bg-[#f8faff] shadow-clayInner pointer-events-none"></div>
+      <div class="relative grid md:grid-cols-3 gap-12 lg:gap-16">
+        {/* Connecting Line - Styled as Clay Groove */}
+        <div class="hidden md:block absolute top-[44px] left-[10%] right-[10%] h-3 rounded-full bg-[#F0F4F9] shadow-inner-clay pointer-events-none"></div>
         
         {steps.map((step, index) => (
-          <div class="relative group" data-animate="fade-up">
-            <div class="bg-white rounded-[40px] p-8 pt-12 shadow-clayCard group-hover:shadow-clayFloating transition-all duration-500 text-center relative z-10 h-full">
-              <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-white shadow-clayButton flex items-center justify-center text-xl font-black text-[#3B82F6] z-20 group-hover:scale-110 transition-transform">
-                {index + 1}
+          <div class="relative group will-change-transform" data-animate="fade-up" style={`animation-delay: ${index * 0.1}s`}>
+            <div class="clay-card-compact text-center relative z-10 h-full group-hover:-translate-y-2 transition-all duration-500 transform-gpu">
+              <div class="absolute -top-9 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-white clay-badge flex items-center justify-center text-2xl font-black text-[#3B82F6] z-20 group-hover:scale-110 transition-transform">
+                <span class="clay-title">{index + 1}</span>
               </div>
-              <h4 class="font-black text-lg text-[#1C398E] mb-4 uppercase tracking-tight" style="font-family: 'Poppins', sans-serif;">{step.title}</h4>
-              <p class="text-[14px] text-[#1C398E]/50 font-medium leading-relaxed" style="font-family: 'Montserrat', sans-serif;" set:html={step.description} />
+              <h4 class="clay-title font-black text-xl text-[#1C398E] mt-4 mb-5 uppercase tracking-tight">{step.title}</h4>
+              <p class="clay-subtitle text-[15px] text-[#1C398E]/50 font-medium leading-relaxed" set:html={step.description} />
             </div>
           </div>
         ))}
@@ -103,32 +108,70 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 </section>
 
 <style>
-  /* Clay Foundations */
-  .shadow-clayCard {
+  .clay-card {
+    background: #ffffff;
+    border-radius: 3.5rem;
+    padding: 3.5rem 2.5rem;
     box-shadow: 
-      12px 12px 24px rgba(28, 57, 142, 0.08),
-      -8px -8px 16px rgba(255, 255, 255, 1),
-      inset 4px 4px 8px rgba(255, 255, 255, 0.8),
-      inset -4px -4px 8px rgba(28, 57, 142, 0.02);
+      inset -10px -10px 20px rgba(0, 0, 0, 0.02), 
+      inset 10px 10px 20px rgba(255, 255, 255, 0.9),
+      20px 40px 80px rgba(28, 57, 142, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
   }
 
-  .shadow-clayFloating {
+  .clay-card-compact {
+    background: #ffffff;
+    border-radius: 3rem;
+    padding: 3rem 2rem;
     box-shadow: 
-      20px 20px 40px rgba(28, 57, 142, 0.12),
-      -12px -12px 24px rgba(255, 255, 255, 1);
+      inset -8px -8px 16px rgba(0, 0, 0, 0.02), 
+      inset 8px 8px 16px rgba(255, 255, 255, 0.9),
+      15px 30px 60px rgba(28, 57, 142, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
   }
 
-  .shadow-clayButton {
+  .clay-badge {
     box-shadow: 
-      6px 6px 12px rgba(28, 57, 142, 0.06),
-      -6px -6px 12px rgba(255, 255, 255, 1),
-      inset 3px 3px 6px rgba(255, 255, 255, 0.6),
-      inset -3px -3px 6px rgba(28, 57, 142, 0.02);
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05), 
+      inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+      4px 8px 16px rgba(28, 57, 142, 0.05);
   }
 
-  .shadow-clayInner {
+  .clay-inner-card {
     box-shadow: 
-      inset 8px 8px 16px rgba(28, 57, 142, 0.06),
-      inset -8px -8px 16px rgba(255, 255, 255, 1);
+      inset 6px 6px 12px rgba(28, 57, 142, 0.04),
+      inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+  }
+
+  .shadow-inner-clay {
+    box-shadow: 
+      inset 4px 4px 8px rgba(0, 0, 0, 0.05),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+  }
+
+  .clay-dot {
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+  }
+
+  .clay-dot-success {
+    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
+  }
+
+  .clay-title {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .clay-subtitle {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  [data-animate] {
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 </style>

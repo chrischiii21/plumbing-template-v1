@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content"
 import BaseLayout from "@/layouts/BaseLayout.astro"
 import DynamicSection from "@/components/DynamicSection.astro"
-import { getLocationText } from "@/config/site"
+import { getLocationText } from "@/config/brand-settings"
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages")

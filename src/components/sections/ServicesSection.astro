@@ -1,10 +1,11 @@
 ---
-import { getLocationText } from "@/config/site"
+import { getLocationText } from "@/config/brand-settings"
 import { ChevronRight } from "lucide-react"
 
 interface Service {
   title: string;
   description: string;
+  icon?: string;
   href?: string;
 }
 
@@ -26,51 +27,56 @@ const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
 ---
 
-<section class="py-24 bg-white relative overflow-hidden">
+<!-- Claymorphism Design System Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<section class="py-24 md:py-32 bg-[#F8FAFC] relative overflow-hidden">
   {/* Ambient Clay Blobs */}
-  <div class="absolute top-0 -left-20 w-96 h-96 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 -right-20 w-96 h-96 bg-[#16A34A]/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute top-0 -left-20 w-[40%] h-[40%] bg-[#3B82F6]/5 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
+  <div class="absolute bottom-0 -right-20 w-[40%] h-[40%] bg-[#16A34A]/5 rounded-full blur-[100px] pointer-events-none"></div>
 
   <div class="container mx-auto px-4 relative z-10">
-    <div class="text-center mb-20" data-animate="fade-up">
-      <h2 class="text-4xl md:text-5xl font-black text-[#1C398E] mb-6 tracking-tight leading-tight uppercase" style="font-family: 'Poppins', sans-serif;">{title}</h2>
-      <p class="text-[17px] text-[#1C398E]/60 max-w-3xl mx-auto font-medium leading-relaxed px-4" style="font-family: 'Montserrat', sans-serif;" set:html={description} />
+    <div class="text-center mb-24 md:mb-32" data-animate="fade-up">
+      <h2 class="clay-title text-4xl md:text-6xl font-black text-[#1C398E] mb-8 leading-tight tracking-tighter uppercase">{title}</h2>
+      <p class="clay-subtitle text-lg md:text-xl text-[#1C398E]/60 max-w-3xl mx-auto font-medium leading-relaxed" set:html={description} />
     </div>
     
-    <div class="space-y-24">
+    <div class="space-y-32">
       {categories.map((category) => (
-        <div class="space-y-10" data-animate="fade-up">
-          <div class="flex items-center justify-center gap-6">
-            <div class="w-12 h-2 rounded-full bg-[#3B82F6]/10 shadow-clayInner"></div>
-            <h3 class="text-2xl font-black text-[#1C398E] uppercase tracking-widest px-8 py-3 bg-white rounded-full shadow-clayButton" style="font-family: 'Poppins', sans-serif;">
+        <div class="space-y-12" data-animate="fade-up">
+          <div class="flex items-center gap-8 px-4">
+            <div class="h-px flex-grow bg-gradient-to-r from-transparent via-[#1C398E]/10 to-transparent"></div>
+            <h3 class="clay-title text-2xl md:text-3xl font-black text-[#1C398E] uppercase tracking-tight px-10 py-4 bg-white rounded-full clay-badge">
               {category.title}
             </h3>
-            <div class="w-12 h-2 rounded-full bg-[#3B82F6]/10 shadow-clayInner"></div>
+            <div class="h-px flex-grow bg-gradient-to-r from-transparent via-[#1C398E]/10 to-transparent"></div>
           </div>
 
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4 bg-[#f8faff] rounded-[48px] shadow-clayInner">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 p-10 bg-[#f8faff] rounded-[4rem] clay-inner-groove">
             {category.services.map((service) => (
-              service.href ? (
-                <a href={service.href} class="group bg-white rounded-[32px] p-8 shadow-clayCard hover:shadow-clayFloating hover:-translate-y-2 transition-all duration-500 flex flex-col relative overflow-hidden">
-                  {/* Decorative Puffy Shape in background */}
-                  <div class="absolute -right-4 -top-4 w-16 h-16 bg-[#3B82F6]/5 rounded-full blur-xl group-hover:scale-150 transition-transform"></div>
-                  
-                  <h4 class="text-lg font-black text-[#1C398E] mb-3 group-hover:text-[#3B82F6] transition-colors leading-tight" style="font-family: 'Poppins', sans-serif;">{service.title}</h4>
-                  <p class="text-[14px] text-[#1C398E]/50 font-medium leading-relaxed mb-8" style="font-family: 'Montserrat', sans-serif;" set:html={service.description} />
-                  
-                  <div class="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#3B82F6]">
-                    View Details
-                    <div class="w-6 h-6 rounded-full bg-white shadow-clayButton flex items-center justify-center group-hover:bg-[#3B82F6] group-hover:text-white transition-all">
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </div>
+              <div class="group relative bg-white rounded-[3rem] p-10 clay-card hover:-translate-y-3 transition-all duration-500 will-change-transform transform-gpu flex flex-col h-full overflow-hidden">
+                
+                {/* Decorative background accent */}
+                <div class="absolute -right-6 -top-6 w-32 h-32 bg-[#3B82F6]/5 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+
+                {/* Icon Puffy Frame */}
+                {service.icon && (
+                  <div class="w-16 h-16 rounded-2xl bg-[#F8FAFC] clay-inner-groove p-3 mb-8 flex items-center justify-center group-hover:bg-white group-hover:shadow-clayFloating transition-all duration-500">
+                    <img src={service.icon} alt={service.title} class="w-full h-full object-contain filter drop-shadow-sm group-hover:scale-110 transition-transform" />
                   </div>
-                </a>
-              ) : (
-                <div class="bg-white rounded-[32px] p-8 shadow-clayCard flex flex-col">
-                  <h4 class="text-lg font-black text-[#1C398E] mb-3" style="font-family: 'Poppins', sans-serif;">{service.title}</h4>
-                  <p class="text-[14px] text-[#1C398E]/50 font-medium leading-relaxed" style="font-family: 'Montserrat', sans-serif;" set:html={service.description} />
-                </div>
-              )
+                )}
+
+                <h4 class="clay-title text-xl font-black text-[#1C398E] mb-4 leading-tight group-hover:text-[#3B82F6] transition-colors">{service.title}</h4>
+                <p class="clay-subtitle text-[15px] text-[#1C398E]/50 font-medium leading-relaxed" set:html={service.description} />
+                
+                {service.href && (
+                  <a href={service.href} class="mt-8 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white clay-badge group/link hover:bg-[#3B82F6] hover:text-white transition-all duration-300">
+                    <ChevronRight className="w-5 h-5" strokeWidth={3} />
+                  </a>
+                )}
+              </div>
             ))}
           </div>
         </div>
@@ -80,32 +86,48 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 </section>
 
 <style>
-  /* Clay Foundations */
-  .shadow-clayCard {
+  .clay-card {
+    background: #ffffff;
     box-shadow: 
-      12px 12px 24px rgba(28, 57, 142, 0.08),
-      -8px -8px 16px rgba(255, 255, 255, 1),
-      inset 4px 4px 10px rgba(255, 255, 255, 0.8),
-      inset -4px -4px 10px rgba(28, 57, 142, 0.03);
+      inset -10px -10px 20px rgba(0, 0, 0, 0.02), 
+      inset 10px 10px 20px rgba(255, 255, 255, 0.9),
+      20px 40px 80px rgba(28, 57, 142, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.8);
   }
 
   .shadow-clayFloating {
     box-shadow: 
-      20px 20px 40px rgba(28, 57, 142, 0.12),
-      -12px -12px 24px rgba(255, 255, 255, 1);
+      inset -4px -4px 8px rgba(0, 0, 0, 0.02), 
+      inset 4px 4px 8px rgba(255, 255, 255, 0.9),
+      10px 20px 40px rgba(28, 57, 142, 0.1);
   }
 
-  .shadow-clayButton {
+  .clay-badge {
     box-shadow: 
-      6px 6px 12px rgba(28, 57, 142, 0.06),
-      -6px -6px 12px rgba(255, 255, 255, 1),
-      inset 3px 3px 6px rgba(255, 255, 255, 0.6),
-      inset -3px -3px 6px rgba(28, 57, 142, 0.02);
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05), 
+      inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+      4px 8px 16px rgba(28, 57, 142, 0.05);
   }
 
-  .shadow-clayInner {
+  .clay-inner-groove {
     box-shadow: 
-      inset 12px 12px 24px rgba(28, 57, 142, 0.06),
-      inset -12px -12px 24px rgba(255, 255, 255, 1);
+      inset 12px 12px 24px rgba(28, 57, 142, 0.05),
+      inset -12px -12px 24px rgba(255, 255, 255, 0.8);
+  }
+
+  .clay-title {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .clay-subtitle {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  [data-animate] {
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 </style>

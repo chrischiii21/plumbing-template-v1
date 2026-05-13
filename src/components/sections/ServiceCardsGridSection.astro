@@ -1,5 +1,6 @@
 ---
-import { getLocationText } from "@/config/site"
+import { getLocationText } from "@/config/brand-settings"
+import { UtensilsCrossed, Bath, Droplets, Flame, Waves, Pipette } from "lucide-react"
 
 interface ServiceCard {
   image: string;
@@ -20,52 +21,126 @@ const { title: raw_title, description: raw_description, services } = Astro.props
 const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
 
-const iconMap: Record<string, string> = {
-  kitchen: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
-  bathroom: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" x2="8" y1="5" y2="7"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="7" x2="7" y1="19" y2="21"/><line x1="17" x2="17" y1="19" y2="21"/></svg>`,
-  leak: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>`,
-  waterheater: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2.67-4-4-4-5.5a4 4 0 1 1 8 0c0 1.5-2 2.83-4 5.5Z"/><path d="M12 22v-4"/><path d="M12 14v-2"/><rect x="6" y="14" width="12" height="8" rx="2"/></svg>`,
-  drain: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16"/><path d="M4 22V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v18"/><path d="M12 6v4"/><path d="M12 14v4"/><circle cx="12" cy="12" r="2"/></svg>`,
-  pipe: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>`
+const iconMap: Record<string, any> = {
+  kitchen: UtensilsCrossed,
+  bathroom: Bath,
+  leak: Droplets,
+  waterheater: Flame,
+  drain: Waves,
+  pipe: Pipette,
 };
 ---
 
-<section class="py-16 md:py-24 bg-primary">
-  <div class="container mx-auto px-4">
+<!-- Claymorphism Design System Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<section class="py-24 md:py-32 bg-[#F8FAFC] relative overflow-hidden">
+  {/* Ambient Depth Elements */}
+  <div class="absolute top-0 right-0 w-[50%] h-[50%] bg-[#3B82F6]/5 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-[40%] h-[40%] bg-[#16A34A]/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
     <!-- Header -->
-    <div class="text-center mb-12" data-animate="fade-up">
-      <h2 class="text-3xl md:text-4xl font-bold text-primary-foreground">{title}</h2>
-      {description && (
-        <p class="text-primary-foreground/80 mt-4 max-w-2xl mx-auto" set:html={description} />
-      )}
+    <div class="max-w-4xl mx-auto text-center mb-16 md:mb-20" data-animate="fade-up">
+      <h2 class="clay-title text-3xl md:text-5xl font-black text-[#1C398E] mb-6 leading-tight tracking-tighter">{title}</h2>
+      {description && <p class="clay-subtitle text-lg md:text-xl text-[#1C398E]/60 max-w-3xl mx-auto font-medium leading-relaxed" set:html={description} />}
     </div>
 
     <!-- Services Grid -->
-    <div class="grid md:grid-cols-3 gap-6" data-animate-stagger>
-      {services.map((service) => (
-        <a href={service.href || "#"} class="group block">
-          <div class="relative rounded-lg overflow-hidden bg-card">
-            <!-- Image -->
-            <div class="aspect-[4/3] overflow-hidden">
-              <img 
-                src={service.image} 
-                alt={service.title} 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 max-w-7xl mx-auto" data-animate-stagger>
+      {services.map((service) => {
+        const IconComponent = iconMap[service.icon] || iconMap.kitchen;
+        return (
+          <a href={service.href || "/contact"} class="group block no-underline outline-none">
+            <div class="clay-card relative h-full flex flex-col hover:-translate-y-4 transition-all duration-500 will-change-transform transform-gpu">
+              
+              <!-- Image Puffy Frame -->
+              <div class="p-4 md:p-6 pb-0">
+                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-inner-clay relative group/img">
+                  <img 
+                    src={service.image} 
+                    alt={service.title} 
+                    class="w-full h-full object-cover transition-transform duration-[3000ms] group-hover/img:scale-110"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-[#1C398E]/40 to-transparent mix-blend-overlay"></div>
+                  
+                  {/* Icon Overlay Badge */}
+                  <div class="absolute top-6 left-6 w-14 h-14 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center clay-badge-white group-hover:scale-110 transition-transform">
+                    <IconComponent className="w-7 h-7 text-[#3B82F6]" strokeWidth={2.5} />
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Content -->
+              <div class="p-8 md:p-10 pt-8 flex flex-col items-center text-center">
+                <h3 class="clay-title text-xl font-black text-[#1C398E] leading-tight group-hover:text-[#3B82F6] transition-colors">{service.title}</h3>
+              </div>
+
+              {/* Background Micro-Accent */}
+              <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-[#3B82F6]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
             </div>
-            
-            <!-- Icon overlay -->
-            <div class="absolute top-4 left-4 w-12 h-12 rounded-lg bg-secondary/90 text-white flex items-center justify-center shadow-lg">
-              <Fragment set:html={iconMap[service.icon] || iconMap.kitchen} />
-            </div>
-            
-            <!-- Title bar -->
-            <div class="bg-secondary text-white py-3 px-4 text-center">
-              <span class="font-semibold">{service.title}</span>
-            </div>
-          </div>
-        </a>
-      ))}
+          </a>
+        );
+      })}
     </div>
   </div>
 </section>
+
+<style>
+  .clay-card {
+    background: #ffffff;
+    border-radius: 3.5rem;
+    box-shadow: 
+      inset -10px -10px 20px rgba(0, 0, 0, 0.02), 
+      inset 10px 10px 20px rgba(255, 255, 255, 0.9),
+      20px 40px 80px rgba(28, 57, 142, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+
+  .shadow-inner-clay {
+    box-shadow: 
+      inset 8px 8px 16px rgba(0, 0, 0, 0.1),
+      inset -8px -8px 16px rgba(255, 255, 255, 0.2);
+  }
+
+  .clay-badge {
+    box-shadow: 
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05), 
+      inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+      4px 8px 16px rgba(28, 57, 142, 0.05);
+  }
+
+  .clay-badge-white {
+    box-shadow: 
+      inset -2px -2px 4px rgba(0, 0, 0, 0.02), 
+      inset 2px 2px 4px rgba(255, 255, 255, 1),
+      10px 20px 40px rgba(28, 57, 142, 0.08);
+  }
+
+  .clay-button-mini {
+    box-shadow: 
+      inset -2px -2px 4px rgba(0, 0, 0, 0.1), 
+      inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+      0 10px 20px rgba(59, 130, 246, 0.3);
+  }
+
+  .clay-title {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .clay-subtitle {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  [data-animate-stagger] > * {
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+</style>

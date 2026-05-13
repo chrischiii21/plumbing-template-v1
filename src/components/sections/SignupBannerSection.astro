@@ -1,5 +1,6 @@
 ---
-import { getLocationText } from "@/config/site"
+import { getLocationText } from "@/config/brand-settings"
+
 
 interface Props {
   title: string;
@@ -27,20 +28,143 @@ const phone = getLocationText(raw_phone);
 const phoneRaw = getLocationText("{phoneRaw}");
 ---
 
-<section class="py-16 md:py-20 bg-primary text-primary-foreground">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto text-center" data-animate="fade-up">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
-      <p class="text-lg opacity-90 mb-8" set:html={description} />
-      <p class="text-xl font-semibold mb-8" set:html={calloutText} />
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href={`tel:${phoneRaw}`} class="inline-flex items-center justify-center rounded-md bg-background text-foreground px-8 py-4 text-lg font-semibold hover:bg-background/90 transition-colors">
-          Call {phone}
-        </a>
-        <a href={buttonHref} class="inline-flex items-center justify-center rounded-md border-2 border-primary-foreground px-8 py-4 text-lg font-semibold hover:bg-primary-foreground/10 transition-colors">
-          {buttonText}
-        </a>
+<!-- Claymorphism Design System Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<section class="py-12 md:py-16 bg-[#F8FAFC] relative overflow-hidden">
+  {/* Ambient Depth Elements */}
+  <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#3B82F6]/10 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-[#16A34A]/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Main Clay Monolith -->
+    <div class="clay-card-monolith max-w-5xl mx-auto p-8 md:p-14 relative overflow-hidden group transform-gpu" data-animate="zoom-in">
+      
+      <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <h2 class="clay-title text-3xl md:text-5xl font-black text-[#1C398E] mb-6 leading-tight tracking-tighter">
+          {title}
+        </h2>
+        
+        <p class="clay-subtitle text-base md:text-lg text-[#1C398E]/60 mb-8 font-medium leading-relaxed" set:html={description} />
+        
+        <!-- Puffy Callout Area -->
+        <div class="clay-inner-card p-5 md:p-7 rounded-[2rem] mb-10 transform group-hover:scale-[1.01] transition-transform duration-500">
+          <p class="clay-subtitle text-lg md:text-xl font-black text-[#1C398E] leading-tight" set:html={calloutText} />
+        </div>
+
+        <!-- Buttons Grid -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
+          <a href={`tel:${phoneRaw}`} class="clay-button-primary w-full sm:w-auto px-8 py-4 rounded-[1.5rem] font-black uppercase tracking-[0.15em] text-xs flex items-center justify-center">
+            Call {phone}
+          </a>
+          
+          <a href={buttonHref} class="clay-button-secondary w-full sm:w-auto px-8 py-4 rounded-[1.5rem] font-black uppercase tracking-[0.15em] text-xs flex items-center justify-center">
+            {buttonText}
+          </a>
+        </div>
       </div>
+
+      {/* Background Micro-Accents */}
+      <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#3B82F6]/5 rounded-full blur-3xl"></div>
     </div>
   </div>
 </section>
+
+<style>
+  .clay-card-monolith {
+    background: #ffffff;
+    border-radius: 3.5rem;
+    box-shadow: 
+      inset -12px -12px 24px rgba(0, 0, 0, 0.02), 
+      inset 12px 12px 24px rgba(255, 255, 255, 0.9),
+      20px 40px 80px rgba(28, 57, 142, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+  }
+
+  @media (max-width: 768px) {
+    .clay-card-monolith {
+      border-radius: 3rem;
+      padding: 3rem 1.5rem;
+    }
+  }
+
+  .clay-badge {
+    box-shadow: 
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05), 
+      inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+      4px 8px 16px rgba(28, 57, 142, 0.05);
+  }
+
+  .clay-inner-card {
+    background: #F8FAFC;
+    box-shadow: 
+      inset 12px 12px 24px rgba(28, 57, 142, 0.05),
+      inset -12px -12px 24px rgba(255, 255, 255, 0.8);
+  }
+
+  .clay-button-primary {
+    background: #3B82F6;
+    color: #FFFFFF;
+    box-shadow: 
+      inset -4px -4px 8px rgba(0, 0, 0, 0.1), 
+      inset 4px 4px 8px rgba(255, 255, 255, 0.3),
+      0 10px 20px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+  }
+
+  .clay-button-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    background: #2563EB;
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+  }
+
+  .clay-button-primary:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .clay-button-secondary {
+    background: #FFFFFF;
+    color: #3B82F6;
+    box-shadow: 
+      inset -4px -4px 8px rgba(0, 0, 0, 0.02), 
+      inset 4px 4px 8px rgba(255, 255, 255, 0.9),
+      0 6px 12px rgba(28, 57, 142, 0.05);
+    border: 2px solid rgba(59, 130, 246, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .clay-button-secondary:hover {
+    transform: translateY(-5px) scale(1.05);
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 15px 30px rgba(28, 57, 142, 0.08);
+  }
+
+  .clay-button-secondary:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: inset 4px 4px 8px rgba(28, 57, 142, 0.05);
+  }
+
+  .clay-title {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .clay-subtitle {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  [data-animate="zoom-in"] {
+    transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+</style>

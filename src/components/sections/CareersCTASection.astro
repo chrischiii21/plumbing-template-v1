@@ -1,5 +1,6 @@
 ---
-import { getLocationText } from "@/config/site"
+import { getLocationText } from "@/config/brand-settings"
+import { ArrowRight } from "lucide-react"
 
 interface Props {
   title: string;
@@ -24,34 +25,139 @@ const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
 ---
 
-<section class="py-16 md:py-24 bg-primary">
-  <div class="container mx-auto px-4">
-    <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
-      <div class="text-primary-foreground" data-animate="fade-right">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
-        {description && (
-          <p class="text-primary-foreground/80 mb-6 max-w-lg" set:html={description} />
-        )}
-        <a 
-          href={buttonHref} 
-          class="inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-6 py-3 font-semibold hover:bg-accent/90 transition-colors"
-        >
-          {buttonText}
-        </a>
-      </div>
-      <div class="flex justify-center md:justify-end" data-animate="fade-left">
-        {image ? (
-          <img 
-            src={image} 
-            alt={imageAlt} 
-            class="rounded-lg max-w-sm w-full object-cover shadow-xl"
-          />
-        ) : (
-          <div class="aspect-square max-w-sm w-full bg-primary-foreground/10 rounded-lg flex items-center justify-center">
-            <span class="text-primary-foreground/50">Image</span>
+<!-- Claymorphism Design System Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<section class="py-24 md:py-32 bg-[#F0F4F9] relative overflow-hidden">
+  {/* Ambient Depth Elements */}
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-white/50 to-transparent pointer-events-none"></div>
+  <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#3B82F6]/10 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-[#16A34A]/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Main Clay CTA Card -->
+    <div class="clay-card-main overflow-hidden group will-change-transform transform-gpu" data-animate="zoom-in">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
+        {/* Content Side */}
+        <div class="p-8 md:p-16 lg:p-20 order-2 lg:order-1">
+          <h2 class="clay-title text-4xl md:text-5xl lg:text-6xl font-black text-[#1C398E] mb-8 leading-[1.1] tracking-tighter">
+            {title}
+          </h2>
+          
+          {description && (
+            <p class="clay-subtitle text-lg md:text-xl text-[#1C398E]/60 mb-12 font-medium leading-relaxed" set:html={description} />
+          )}
+          
+          <div class="flex flex-wrap gap-6">
+            <a 
+              href={buttonHref} 
+              class="clay-button-primary px-10 py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] text-sm flex items-center gap-3 group/btn"
+            >
+              {buttonText}
+              <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+            </a>
           </div>
-        )}
+        </div>
+
+        {/* Image Side */}
+        <div class="relative h-full min-h-[400px] lg:min-h-full order-1 lg:order-2">
+          {image ? (
+            <div class="absolute inset-0 p-4 lg:p-8">
+              <div class="w-full h-full rounded-[3rem] overflow-hidden shadow-inner-clay relative group">
+                <img 
+                  src={image} 
+                  alt={imageAlt} 
+                  class="w-full h-full object-cover transition-transform duration-[4000ms] group-hover:scale-110"
+                />
+                <div class="absolute inset-0 bg-gradient-to-l from-[#3B82F6]/20 to-transparent mix-blend-overlay"></div>
+              </div>
+            </div>
+          ) : (
+            <div class="w-full h-full bg-[#3B82F6]/5 flex items-center justify-center">
+              <Send className="w-20 h-20 text-[#3B82F6]/20" />
+            </div>
+          )}
+          
+          {/* Decorative Corner Element */}
+          <div class="absolute -top-12 -right-12 w-48 h-48 bg-[#3B82F6]/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+        </div>
+        
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .clay-card-main {
+    background: #ffffff;
+    border-radius: 4rem;
+    box-shadow: 
+      inset -15px -15px 30px rgba(0, 0, 0, 0.02), 
+      inset 15px 15px 30px rgba(255, 255, 255, 0.9),
+      40px 80px 120px rgba(28, 57, 142, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.9);
+  }
+
+  .clay-badge {
+    box-shadow: 
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05), 
+      inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+      4px 8px 16px rgba(28, 57, 142, 0.05);
+  }
+
+  .clay-badge-white {
+    box-shadow: 
+      inset -2px -2px 4px rgba(0, 0, 0, 0.02), 
+      inset 2px 2px 4px rgba(255, 255, 255, 1),
+      10px 20px 40px rgba(28, 57, 142, 0.08);
+  }
+
+  .shadow-inner-clay {
+    box-shadow: 
+      inset 12px 12px 24px rgba(0, 0, 0, 0.1),
+      inset -12px -12px 24px rgba(255, 255, 255, 0.2);
+  }
+
+  .clay-button-primary {
+    background: #3B82F6;
+    color: #FFFFFF;
+    box-shadow: 
+      inset -4px -4px 8px rgba(0, 0, 0, 0.1), 
+      inset 4px 4px 8px rgba(255, 255, 255, 0.3),
+      0 15px 30px rgba(59, 130, 246, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+  }
+
+  .clay-button-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    background: #2563EB;
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+  }
+
+  .clay-button-primary:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .clay-title {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .clay-subtitle {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  [data-animate="zoom-in"] {
+    transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+</style>
