@@ -132,6 +132,10 @@ export function ServicesSection({ title, description, categories }: Props) {
                       src={CATEGORY_IMAGES[categories[activeTab].title]}
                       alt=""
                       className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
+                      loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={600}
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1C398E]/90 via-[#1C398E]/20 to-transparent p-8 flex flex-col justify-end">

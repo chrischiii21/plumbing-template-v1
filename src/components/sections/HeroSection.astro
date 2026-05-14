@@ -124,6 +124,11 @@ const currentSubtitle = slides.length > 0 ? slides[0].subtitle : subtitle;
                           src={slide.image} 
                           alt={slide.title} 
                           class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[3000ms]"
+                          fetchpriority="high"
+                          loading="eager"
+                          decoding="sync"
+                          width="800"
+                          height="1000"
                         />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#1C398E]/30 to-transparent mix-blend-overlay"></div>
                       </div>

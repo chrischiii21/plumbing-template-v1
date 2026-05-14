@@ -217,7 +217,7 @@ export function Navbar() {
             {/* Logo Section */}
             <a href="/" className="flex items-center gap-3 md:gap-5 group shrink-0 relative z-20">
               <div className="w-10 h-10 md:w-16 md:h-16 bg-[#f8faff] rounded-[16px] md:rounded-[24px] shadow-clayInner flex items-center justify-center p-2 md:p-3 group-hover:shadow-clayButton transition-all duration-500">
-                <img src={siteConfig.logo?.src} alt="Logo" className="w-full h-full object-contain" />
+                <img src={siteConfig.logo?.src} alt="Logo" className="w-full h-full object-contain" width={64} height={64} />
               </div>
               <div className="flex flex-col">
                 <span className="font-[900] text-xs md:text-xl text-[#1C398E] leading-none uppercase tracking-tighter" style={{ fontFamily: 'Poppins, sans-serif' }}>
@@ -269,7 +269,7 @@ export function Navbar() {
                       <div className="flex items-center justify-between w-full">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 bg-white rounded-2xl shadow-clayButton flex items-center justify-center p-2">
-                            <img src={siteConfig.logo?.src} alt="Logo" className="w-full h-full object-contain" />
+                            <img src={siteConfig.logo?.src} alt="Logo" className="w-full h-full object-contain" width={64} height={64} />
                           </div>
                           <SheetTitle className="text-xl font-black text-[#1C398E] uppercase tracking-tighter">
                             {siteConfig.business?.name}
