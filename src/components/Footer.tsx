@@ -55,13 +55,13 @@ export function Footer() {
             </div>
             
             <div className="flex gap-4">
-              <a href="#" className="clay-social-btn">
+              <a href="#" className="clay-social-btn" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="clay-social-btn">
+              <a href="#" className="clay-social-btn" aria-label="X (Twitter)">
                 <XIcon className="w-5 h-5" />
               </a>
-              <a href={`mailto:${siteConfig.contact?.email}`} className="clay-social-btn">
+              <a href={`mailto:${siteConfig.contact?.email}`} className="clay-social-btn" aria-label="Email Us">
                 <Mail className="w-5 h-5" />
               </a>
             </div>

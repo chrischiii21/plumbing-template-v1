@@ -237,7 +237,7 @@ export function Navbar() {
             {/* Action Hub */}
             <div className="flex items-center gap-2 md:gap-6 relative z-20">
               {/* Phone Action */}
-              <a href={`tel:${siteConfig.contact?.phone}`} className="flex items-center gap-3 bg-[#f8faff] p-2 md:pl-3 md:pr-8 md:py-2.5 rounded-full shadow-clayInner group hover:shadow-clayButton hover:bg-white transition-all duration-500">
+              <a href={`tel:${siteConfig.contact?.phone}`} aria-label={`Call us at ${siteConfig.contact?.phoneFormatted}`} className="flex items-center gap-3 bg-[#f8faff] p-2 md:pl-3 md:pr-8 md:py-2.5 rounded-full shadow-clayInner group hover:shadow-clayButton hover:bg-white transition-all duration-500">
                 <div className="w-9 h-9 md:w-12 md:h-12 rounded-full bg-[#16A34A] shadow-clayButton flex items-center justify-center text-white group-hover:rotate-12 transition-transform shrink-0">
                   <Phone className="w-4 h-4 md:w-6 md:h-6" />
                 </div>
@@ -412,7 +412,7 @@ export function Navbar() {
 function MobileNav({ onClose }: { onClose: () => void }) {
   return (
     <div className="space-y-6 overflow-y-auto max-h-[calc(100vh-100px)]">
-      <a href={`tel:${siteConfig.contact?.phone}`} className="flex items-center gap-4 bg-white p-6 rounded-[32px] shadow-clayButton active:shadow-clayInner transition-all">
+      <a href={`tel:${siteConfig.contact?.phone}`} aria-label={`Call us at ${siteConfig.contact?.phoneFormatted}`} className="flex items-center gap-4 bg-white p-6 rounded-[32px] shadow-clayButton active:shadow-clayInner transition-all">
         <div className="w-14 h-14 rounded-full bg-[#16A34A] flex items-center justify-center text-white shadow-clayButton"><Phone className="h-7 w-7" /></div>
         <span className="font-black text-xl text-[#1C398E]">{siteConfig.contact?.phoneFormatted}</span>
       </a>

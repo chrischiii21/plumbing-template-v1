@@ -87,7 +87,7 @@
             "description": "Round-the-clock <a href='/specialty/emergency-plumbing/emergency-leak-repair'><strong>emergency plumbing</strong></a> services available in all areas we serve."
           }
         ],
-        "image": "https://ucarecdn.com/514fa2a4-9e6c-417b-8e38-fdab8ec5364a/-/preview/999x1000/",
+        "image": "https://ucarecdn.com/514fa2a4-9e6c-417b-8e38-fdab8ec5364a/-/format/auto/-/quality/smart999x1000/",
         "imagePosition": "left"
       }
     },
@@ -122,25 +122,25 @@
         "title": "Related Services",
         "services": [
           {
-            "image": "https://ucarecdn.com/904d12f4-36c2-4c11-99c9-c22ebbc905fe/-/preview/1000x666/",
+            "image": "https://ucarecdn.com/904d12f4-36c2-4c11-99c9-c22ebbc905fe/-/format/auto/-/quality/smart1000x666/",
             "icon": "kitchen",
             "title": "Residential Plumbing Services",
             "href": "/residential-plumbing"
           },
           {
-            "image": "https://ucarecdn.com/b2b720dc-bf04-4366-a627-124001e3746e/-/preview/1000x666/",
+            "image": "https://ucarecdn.com/b2b720dc-bf04-4366-a627-124001e3746e/-/format/auto/-/quality/smart1000x666/",
             "icon": "building",
             "title": "Commercial Plumbing Services",
             "href": "/commercial"
           },
           {
-            "image": "https://ucarecdn.com/075a53c5-b442-4211-bd8d-baf6977b3f87/-/preview/1000x666/",
+            "image": "https://ucarecdn.com/075a53c5-b442-4211-bd8d-baf6977b3f87/-/format/auto/-/quality/smart1000x666/",
             "icon": "leak",
             "title": "Specialty Plumbing Services",
             "href": "/specialty"
           },
           {
-            "image": "https://ucarecdn.com/f0f1f6f3-d381-4c74-8d86-0a5cb24648f0/-/preview/1000x666/",
+            "image": "https://ucarecdn.com/f0f1f6f3-d381-4c74-8d86-0a5cb24648f0/-/format/auto/-/quality/smart1000x666/",
             "icon": "pipe",
             "title": "Maintenance Services",
             "href": "/maintenance"
