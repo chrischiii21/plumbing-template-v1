@@ -63,6 +63,7 @@ function UtilityLink({ item }: { item: NavItemType }) {
       <a 
         href={item.href} 
         className={`text-[11px] font-black uppercase tracking-[0.15em] transition-all px-4 py-2 rounded-full relative z-50 inline-flex items-center gap-2 active:scale-95 ${isOpen ? 'text-[#3B82F6] bg-[#3B82F6]/5' : 'text-[#1C398E]/90 hover:text-[#3B82F6] hover:bg-[#3B82F6]/5'}`}
+        aria-label={item.title}
         style={{ fontFamily: 'JetBrains Mono, monospace' }}
       >
         {item.title}
@@ -197,6 +198,7 @@ export function Navbar() {
                 <a 
                   key={action.href} 
                   href={action.href} 
+                  aria-label={action.title}
                   className={`group relative px-6 py-2.5 rounded-[18px] text-[10px] font-[900] uppercase tracking-[0.2em] flex items-center gap-3 transition-all duration-500 active:scale-95 z-50
                     ${action.icon === "settings" 
                       ? "bg-[#3B82F6] text-white shadow-clayButton hover:bg-[#2563EB] hover:-translate-y-0.5" 
@@ -242,7 +244,7 @@ export function Navbar() {
                   <Phone className="w-4 h-4 md:w-6 md:h-6" />
                 </div>
                 <div className="hidden md:flex flex-col">
-                  <span className="text-[9px] font-black text-[#1C398E]/40 uppercase tracking-[0.2em] leading-none mb-1">24/7 Service</span>
+                  <span className="text-[9px] font-black text-[#1C398E]/70 uppercase tracking-[0.2em] leading-none mb-1">24/7 Service</span>
                   <span className="text-sm md:text-lg font-[900] text-[#1C398E] group-hover:text-[#3B82F6] transition-colors whitespace-nowrap">{siteConfig.contact?.phoneFormatted}</span>
                 </div>
               </a>

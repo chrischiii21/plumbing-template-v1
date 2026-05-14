@@ -81,6 +81,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.seo.siteUrl).href
     <!-- Outfit (headings) + DM Sans (body) via Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://ucarecdn.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap" /></noscript>
     
@@ -88,7 +89,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.seo.siteUrl).href
     <ThemeProvider />
   </head>
   <body class="min-h-screen flex flex-col overflow-x-hidden w-full">
-    <Navbar client:load />
+    <Navbar client:idle />
     <main class="flex-1 w-full">
       <slot />
     </main>

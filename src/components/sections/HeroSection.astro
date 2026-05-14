@@ -122,6 +122,12 @@ const currentSubtitle = slides.length > 0 ? slides[0].subtitle : subtitle;
                       <div class="aspect-[4/5] rounded-[55px] overflow-hidden shadow-inner-clay relative">
                         <img 
                           src={slide.image} 
+                          srcset={slide.image.includes('ucarecdn.com') || slide.image.includes('ucarecd.net') ? `
+                            ${slide.image.replace(/\/preview\/\d+x\d+\//, '/preview/400x400/')} 400w,
+                            ${slide.image.replace(/\/preview\/\d+x\d+\//, '/preview/800x800/')} 800w,
+                            ${slide.image} 1200w
+                          ` : undefined}
+                          sizes="(max-width: 768px) 400px, (max-width: 1024px) 800px, 1200px"
                           alt={slide.title} 
                           class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[3000ms]"
                           fetchpriority="high"
