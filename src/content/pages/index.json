@@ -13,26 +13,26 @@
           {
             "title": "Building Your Dream Business? We're Here To Help!",
             "subtitle": "Professional plumbing solutions for residential and commercial properties in {city}.",
-            "image": "/images/photos/ucare-ce315695-1000x562.jpg",
+            "image": "https://ucarecdn.com/ce315695-0b1e-4a89-9dcc-7a35ef585fc9/-/format/auto/-/quality/smart/-/preview/1000x562/",
             "promoTitle": "5% OFF",
             "promoText": "for new commercial projects",
-            "promoImage": "/images/photos/ucare-514fa2a4-400x260.jpg"
+            "promoImage": "https://ucarecdn.com/514fa2a4-9e6c-417b-8e38-fdab8ec5364a/-/format/auto/-/quality/smart/-/preview/400x260/"
           },
           {
             "title": "Shower Installation Special!",
             "subtitle": "Upgrade to a luxurious rain shower, a convenient walk-in shower, or a relaxing jetted shower.",
-            "image": "/images/photos/ucare-e8a4f4fd-1000x665.jpg",
+            "image": "https://ucarecdn.com/e8a4f4fd-5048-4e3d-8e91-763d685d5bd4/-/format/auto/-/quality/smart/-/preview/1000x665/",
             "promoTitle": "15% OFF",
             "promoText": "all new shower installations during your bathroom remodel.",
-            "promoImage": "/images/photos/ucare-e8a4f4fd-400x260.jpg"
+            "promoImage": "https://ucarecdn.com/e8a4f4fd-5048-4e3d-8e91-763d685d5bd4/-/format/auto/-/quality/smart/-/preview/400x260/"
           },
           {
             "title": "Toilet Overflows & Burst Pipes? We're Your 24/7 Rescue!",
             "subtitle": "Don't let water damage ruin your day. Call us now!",
-            "image": "/images/photos/ucare-4029464b-1000x562.jpg",
+            "image": "https://ucarecdn.com/4029464b-0696-4b67-b02b-1870e3986759/-/format/auto/-/quality/smart/-/preview/1000x562/",
             "promoTitle": "Get 20% OFF",
             "promoText": "All emergency plumbing services for bathroom issues.",
-            "promoImage": "/images/photos/ucare-4029464b-400x260.jpg"
+            "promoImage": "https://ucarecdn.com/4029464b-0696-4b67-b02b-1870e3986759/-/format/auto/-/quality/smart/-/preview/400x260/"
           }
         ]
       }
@@ -109,8 +109,8 @@
         "buttonText": "Learn More About Our Plumbing Services",
         "buttonHref": "/about",
         "images": [
-          "/images/photos/ucare-514fa2a4-999x1000.jpg",
-          "/images/photos/ucare-315825d3-1000x666.jpg"
+          "https://ucarecdn.com/514fa2a4-9e6c-417b-8e38-fdab8ec5364a/-/format/auto/-/quality/smart/-/preview/999x1000/",
+          "https://ucarecdn.com/315825d3-5856-474f-8ac1-f793441976f7/-/format/auto/-/quality/smart/-/preview/1000x666/"
         ],
         "imagePosition": "left"
       }
@@ -340,14 +340,14 @@
         "badge": "Portfolio",
         "title": "Our Featured Works",
         "images": [
-          "/images/photos/ucare-904d12f4-1000x666.jpg",
-          "/images/photos/ucare-b2b720dc-1000x666.jpg",
-          "/images/photos/ucare-075a53c5-1000x666.jpg",
-          "/images/photos/ucare-f0f1f6f3-1000x666.jpg",
+          "https://ucarecdn.com/904d12f4-36c2-4c11-99c9-c22ebbc905fe/-/format/auto/-/quality/smart/-/preview/1000x666/",
+          "https://ucarecdn.com/b2b720dc-bf04-4366-a627-124001e3746e/-/format/auto/-/quality/smart/-/preview/1000x666/",
+          "https://ucarecdn.com/075a53c5-b442-4211-bd8d-baf6977b3f87/-/format/auto/-/quality/smart/-/preview/1000x666/",
+          "https://ucarecdn.com/f0f1f6f3-d381-4c74-8d86-0a5cb24648f0/-/format/auto/-/quality/smart/-/preview/1000x666/",
           "/images/photos/ucare-a6fafe41-ReliableGarbageDisposalRepairandReplacement.webp",
-          "/images/photos/ucare-f2844f4a-1000x562.jpg",
-          "/images/photos/ucare-14cf294e-1000x750.jpg",
-          "/images/photos/ucare-c43ed716-1000x753.jpg"
+          "https://ucarecdn.com/f2844f4a-fb1f-4bae-af04-38db79fe8902/-/format/auto/-/quality/smart/-/preview/1000x562/",
+          "https://ucarecdn.com/14cf294e-225e-4857-a4cb-6b31611cffec/-/format/auto/-/quality/smart/-/preview/1000x750/",
+          "https://ucarecdn.com/c43ed716-6e4c-4c93-9461-5fcd2aa79166/-/format/auto/-/quality/smart/-/preview/1000x753/"
         ]
       }
     },

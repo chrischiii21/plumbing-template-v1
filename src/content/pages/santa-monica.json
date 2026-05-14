@@ -12,7 +12,7 @@
         "subtitle": "Providing expert plumbing solutions to homes and businesses in Santa Monica — ensuring reliable and efficient services every time. Call us at {phone} for expert assistance!",
         "buttonText": "SCHEDULE SERVICE",
         "buttonHref": "/contact",
-        "image": "/images/photos/ucare-f2844f4a-1000x562.jpg",
+        "image": "https://ucarecdn.com/f2844f4a-fb1f-4bae-af04-38db79fe8902/-/format/auto/-/quality/smart/-/preview/1000x562/",
         "trustIndicators": [
           "Serving {city} for 20 Years",
           "Quality Service",
@@ -271,14 +271,14 @@
         "badge": "Portfolio",
         "title": "Our Featured Works",
         "images": [
-          "/images/photos/ucare-904d12f4-1000x666.jpg",
-          "/images/photos/ucare-b2b720dc-1000x666.jpg",
-          "/images/photos/ucare-075a53c5-1000x666.jpg",
-          "/images/photos/ucare-f0f1f6f3-1000x666.jpg",
+          "https://ucarecdn.com/904d12f4-36c2-4c11-99c9-c22ebbc905fe/-/format/auto/-/quality/smart/-/preview/1000x666/",
+          "https://ucarecdn.com/b2b720dc-bf04-4366-a627-124001e3746e/-/format/auto/-/quality/smart/-/preview/1000x666/",
+          "https://ucarecdn.com/075a53c5-b442-4211-bd8d-baf6977b3f87/-/format/auto/-/quality/smart/-/preview/1000x666/",
+          "https://ucarecdn.com/f0f1f6f3-d381-4c74-8d86-0a5cb24648f0/-/format/auto/-/quality/smart/-/preview/1000x666/",
           "/images/photos/ucare-a6fafe41-ReliableGarbageDisposalRepairandReplacement.webp",
-          "/images/photos/ucare-f2844f4a-1000x562.jpg",
-          "/images/photos/ucare-14cf294e-1000x750.jpg",
-          "/images/photos/ucare-c43ed716-1000x753.jpg"
+          "https://ucarecdn.com/f2844f4a-fb1f-4bae-af04-38db79fe8902/-/format/auto/-/quality/smart/-/preview/1000x562/",
+          "https://ucarecdn.com/14cf294e-225e-4857-a4cb-6b31611cffec/-/format/auto/-/quality/smart/-/preview/1000x750/",
+          "https://ucarecdn.com/c43ed716-6e4c-4c93-9461-5fcd2aa79166/-/format/auto/-/quality/smart/-/preview/1000x753/"
         ]
       }
     },
