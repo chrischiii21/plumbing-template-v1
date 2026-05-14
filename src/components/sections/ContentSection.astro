@@ -50,6 +50,9 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
                   alt={imageAlts[i] || `${title} - photo ${i + 1}`} 
                   class="w-full h-full object-cover" 
                   loading="lazy"
+                  decoding="async"
+                  width="480"
+                  height="480"
                 />
               </div>
             ))

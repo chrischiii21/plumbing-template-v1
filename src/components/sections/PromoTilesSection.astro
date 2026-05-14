@@ -75,7 +75,7 @@ const tiles = rawTiles.map(tile => ({
             {/* Background Image Overlay */}
             {tile.bgImage && (
               <div class="absolute inset-0 opacity-[0.12] mix-blend-overlay pointer-events-none group-hover:scale-105 group-hover:opacity-[0.20] transition-all duration-700 ease-out">
-                <img src={tile.bgImage} alt="" class="w-full h-full object-cover" />
+                <img src={tile.bgImage} alt="" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="400" />
               </div>
             )}
             

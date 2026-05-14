@@ -68,6 +68,9 @@ const placeholderCount = images.length > 0 ? images.length : 8;
                       alt={`${title} - project ${i + 1}`}
                       class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
+                      decoding="async"
+                      width="400"
+                      height="400"
                     />
                     <div class="absolute inset-0 bg-[#1C398E]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>

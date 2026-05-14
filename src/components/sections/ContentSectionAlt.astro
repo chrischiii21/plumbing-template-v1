@@ -81,7 +81,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
             
             <div class="w-full flex-grow rounded-[20px] lg:rounded-[28px] overflow-hidden shadow-clayCard relative bg-white flex items-center justify-center">
               {image ? (
-                <img src={image} alt={imageAlt} class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 absolute inset-0" />
+                <img src={image} alt={imageAlt} class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 absolute inset-0" loading="lazy" decoding="async" width="800" height="600" />
               ) : (
                 <span class="text-[#1C398E]/20 font-black uppercase tracking-widest text-xs absolute inset-0 flex items-center justify-center">Visual Representation</span>
               )}
