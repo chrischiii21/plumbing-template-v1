@@ -140,8 +140,27 @@
   }
 }
 
-/* Global button hover highlight */
+/* Global component styles */
 @layer components {
+  /* Inline Text Hyperlinks (set:html contents) */
+  p a:not([class]),
+  li a:not([class]) {
+    color: #3B82F6;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  p a:not([class]):hover,
+  li a:not([class]):hover {
+    color: #1C398E;
+  }
+
+  p a:not([class]) strong,
+  li a:not([class]) strong {
+    font-weight: 900;
+    color: inherit;
+  }
+
   /* Accent buttons: hover to highlight bg */
   a[class*="bg-accent"]:hover,
   button[class*="bg-accent"]:hover,

@@ -88,8 +88,8 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
           <div class="grid sm:grid-cols-2 gap-4 mb-12">
             {features.map((feature) => (
               <div class="flex items-center gap-4 bg-white p-3 pr-6 rounded-[24px] shadow-clayButton hover:shadow-clayInner transition-all duration-300">
-                <div class="w-8 h-8 rounded-full bg-[#16A34A] text-white flex items-center justify-center shadow-clayButton">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+                <div class="w-8 h-8 shrink-0 rounded-full bg-[#16A34A] text-white flex items-center justify-center shadow-clayButton">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                 </div>
                 <span class="text-xs font-black text-[#1C398E] uppercase tracking-wide leading-tight">{feature}</span>
               </div>

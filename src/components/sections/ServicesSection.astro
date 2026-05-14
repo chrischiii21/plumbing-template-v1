@@ -63,8 +63,11 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 
                 {/* Icon Puffy Frame */}
                 {service.icon && (
-                  <div class="w-16 h-16 rounded-2xl bg-[#F8FAFC] clay-inner-groove p-3 mb-8 flex items-center justify-center group-hover:bg-white group-hover:shadow-clayFloating transition-all duration-500">
-                    <img src={service.icon} alt={service.title} class="w-full h-full object-contain filter drop-shadow-sm group-hover:scale-110 transition-transform" />
+                  <div class="w-16 h-16 rounded-2xl bg-[#F8FAFC] clay-inner-groove p-3.5 mb-8 flex items-center justify-center group-hover:bg-white group-hover:shadow-clayFloating transition-all duration-500">
+                    <div 
+                      class="w-full h-full bg-[#3B82F6] group-hover:scale-110 transition-transform duration-500 drop-shadow-sm"
+                      style={`-webkit-mask-image: url('${service.icon}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('${service.icon}'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;`}
+                    ></div>
                   </div>
                 )}
 

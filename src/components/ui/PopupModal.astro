@@ -125,13 +125,19 @@ const phoneFormatted = siteConfig.contact.phoneFormatted;
 </div>
 
 <script>
+  let popupTimeoutId;
+
   function showPopup() {
     const popup = document.getElementById("popup-modal");
     if (!popup) return;
     popup.classList.remove("hidden");
     popup.classList.add("flex");
     document.body.style.overflow = "hidden";
-    sessionStorage.setItem("popup-shown", "true");
+    
+    const showOnce = popup.getAttribute("data-show-once") === "true";
+    if (showOnce) {
+      sessionStorage.setItem("popup-shown", "true");
+    }
   }
 
   function closePopup() {
@@ -146,7 +152,13 @@ const phoneFormatted = siteConfig.contact.phoneFormatted;
     const popup = document.getElementById("popup-modal");
     if (!popup) return;
 
+    // Clear any existing timeouts from previous page loads to prevent race conditions
+    if (popupTimeoutId) {
+      clearTimeout(popupTimeoutId);
+    }
+
     const alreadyShown = sessionStorage.getItem("popup-shown") === "true";
+    const showOnce = popup.getAttribute("data-show-once") === "true";
     const triggerId = popup.getAttribute("data-trigger-id");
 
     document.getElementById("close-popup")?.addEventListener("click", closePopup);
@@ -164,11 +176,16 @@ const phoneFormatted = siteConfig.contact.phoneFormatted;
     }
 
     const delay = parseInt(popup.getAttribute("data-delay") || "0") || 0;
-    if (delay > 0 && window.innerWidth >= 768 && !alreadyShown) {
-      setTimeout(() => { if (window.innerWidth >= 768) showPopup(); }, delay);
+    
+    // Automatically trigger if it has a delay, and either showOnce is false, or it hasn't been shown yet.
+    if (delay > 0 && (!showOnce || !alreadyShown)) {
+      popupTimeoutId = setTimeout(() => {
+        showPopup();
+      }, delay);
     }
   }
 
+  // Run on initial load and subsequent navigations
   document.addEventListener("astro:page-load", initPopup);
 </script>
 

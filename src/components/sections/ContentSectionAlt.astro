@@ -1,5 +1,6 @@
 ---
 import { getLocationText } from "@/config/brand-settings"
+import { CheckCircle2, ArrowRight } from "lucide-react"
 
 interface FeatureItem {
   icon?: string;
@@ -42,85 +43,97 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 ---
 
-<section class="py-16 md:py-24">
-  <div class="container mx-auto px-4">
-    {/* Header - centered above the two columns */}
-    <div class="text-center mb-12" data-animate="fade-up">
+<section class="py-16 md:py-20 bg-[#f8faff] relative overflow-hidden">
+  
+  {/* Fluid Background Accents */}
+  <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-[#3B82F6]/3 rounded-full blur-[80px] pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#16A34A]/3 rounded-full blur-[80px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    
+    {/* Header Section */}
+    <div class="text-center mb-10 lg:mb-14 flex flex-col items-center" data-animate="fade-up">
       {badge && (
-        <span class="inline-block text-sm font-semibold text-accent uppercase tracking-wide mb-4">{badge}</span>
+        <div class="inline-flex items-center gap-2.5 bg-white px-5 py-2 rounded-full shadow-clayInner mb-5 border-2 border-white">
+           <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#3B82F6]" style="font-family: 'JetBrains Mono', monospace;">{badge}</span>
+        </div>
       )}
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold">
+      
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-[#1C398E] leading-[1.1] tracking-tight uppercase max-w-4xl" style="font-family: 'Poppins', sans-serif;">
         {title}{" "}
         {titleHighlightProcessed && (
-          <span class="text-accent">{titleHighlightProcessed}</span>
+           <span class="text-[#3B82F6]">{titleHighlightProcessed}</span>
         )}
       </h2>
-      <p class="text-muted-foreground mt-4 max-w-3xl mx-auto" set:html={description} />
+      
+      {description && (
+        <p class="text-base text-[#1C398E]/60 mt-5 leading-relaxed font-medium max-w-2xl mx-auto" style="font-family: 'Montserrat', sans-serif;" set:html={description} />
+      )}
     </div>
 
-    {/* Two column layout */}
-    <div class={`grid md:grid-cols-2 gap-8 lg:gap-12 items-start ${imagePosition === "right" ? "" : ""}`}>
-      {imagePosition === "left" && (
-        <div class="rounded-lg overflow-hidden max-h-[400px]" data-animate="fade-right">
-          {image ? (
-            <img src={image} alt={imageAlt} class="w-full h-full object-cover" />
-          ) : (
-            <div class="aspect-video bg-muted flex items-center justify-center">
-              <span class="text-muted-foreground text-sm">Image</span>
+    {/* Content Chassis */}
+    <div class="bg-white rounded-[40px] lg:rounded-[60px] shadow-clayCard p-6 lg:p-10 border border-white relative z-20">
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+        
+        {/* Image Column */}
+        <div class={`w-full relative flex flex-col min-h-[300px] lg:min-h-0 ${imagePosition === 'right' ? 'lg:order-2' : 'lg:order-1'}`} data-animate={imagePosition === 'right' ? 'fade-left' : 'fade-right'}>
+          <div class="w-full flex-grow rounded-[32px] lg:rounded-[40px] bg-[#f8faff] p-3 shadow-clayInner border-4 border-white group relative flex flex-col">
+            
+            <div class="w-full flex-grow rounded-[20px] lg:rounded-[28px] overflow-hidden shadow-clayCard relative bg-white flex items-center justify-center">
+              {image ? (
+                <img src={image} alt={imageAlt} class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 absolute inset-0" />
+              ) : (
+                <span class="text-[#1C398E]/20 font-black uppercase tracking-widest text-xs absolute inset-0 flex items-center justify-center">Visual Representation</span>
+              )}
+              
+              {/* Soft inner overlay for clay feel */}
+              <div class="absolute inset-0 shadow-[inset_0_0_30px_rgba(28,57,142,0.04)] pointer-events-none"></div>
             </div>
-          )}
+          </div>
         </div>
-      )}
 
-      <div class="space-y-2" data-animate="fade-up">
-        {features.length > 0 && (
-          <>
-            {featuresTitle && (
-              <h3 class="text-xl md:text-2xl font-bold mb-6">{featuresTitle}</h3>
-            )}
-            <ul class="space-y-6">
-              {features.map((feature) => (
-                <li class="flex gap-4">
-                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center">
+        {/* Features Column */}
+        <div class={`flex flex-col justify-center space-y-6 ${imagePosition === 'right' ? 'lg:order-1' : 'lg:order-2'}`} data-animate={imagePosition === 'right' ? 'fade-right' : 'fade-left'}>
+          {featuresTitle && (
+            <h3 class="text-xl md:text-2xl font-black text-[#1C398E] uppercase tracking-tight pl-2" style="font-family: 'Poppins', sans-serif;">
+              {featuresTitle}
+            </h3>
+          )}
+          
+          {features.length > 0 && (
+            <div class="space-y-3 md:space-y-4">
+              {features.map((feature, i) => (
+                <div 
+                  class="bg-[#f8faff] rounded-[24px] p-5 shadow-clayInner border-2 border-white flex gap-4 group hover:-translate-y-0.5 transition-all duration-300"
+                  style={`animation-delay: ${i * 0.1}s`}
+                >
+                  <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white shadow-clayCard border-2 border-[#f8faff] text-[#16A34A] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {feature.icon ? (
-                      <span class="text-lg" set:html={feature.icon} />
+                      <span class="text-base" set:html={feature.icon} />
                     ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                        <polyline points="22 4 12 14.01 9 11.01" />
-                      </svg>
+                      <CheckCircle2 className="w-6 h-6" strokeWidth={2.5} />
                     )}
                   </div>
-                  <div>
-                    <h4 class="font-semibold text-foreground">{feature.title}</h4>
-                    <p class="text-muted-foreground text-sm mt-1" set:html={feature.description} />
+                  <div class="flex flex-col justify-center">
+                    <h4 class="font-black text-base md:text-lg text-[#1C398E] mb-0.5" style="font-family: 'Poppins', sans-serif;">{feature.title}</h4>
+                    <p class="text-[13px] md:text-sm text-[#1C398E]/60 font-medium leading-relaxed" style="font-family: 'Montserrat', sans-serif;" set:html={feature.description} />
                   </div>
-                </li>
+                </div>
               ))}
-            </ul>
-          </>
-        )}
+            </div>
+          )}
 
-        {buttonText && buttonHref && (
-          <div class="pt-6">
-            <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-semibold hover:bg-primary/90 transition-colors">
-              {buttonText}
-            </a>
-          </div>
-        )}
-      </div>
-
-      {imagePosition === "right" && (
-        <div class="rounded-lg overflow-hidden max-h-[300px]" data-animate="fade-left">
-          {image ? (
-            <img src={image} alt={imageAlt} class="w-full h-full object-cover" />
-          ) : (
-            <div class="aspect-video bg-muted flex items-center justify-center">
-              <span class="text-muted-foreground text-sm">Image</span>
+          {buttonText && buttonHref && (
+            <div class="pt-4 flex justify-start pl-2">
+              <a href={buttonHref} class="clay-btn-primary h-14 px-8 text-[12px] md:text-[13px] text-white font-black uppercase tracking-widest inline-flex items-center justify-center group shadow-clayButton rounded-full">
+                {buttonText}
+                <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-1.5 transition-transform" />
+              </a>
             </div>
           )}
         </div>
-      )}
+
+      </div>
     </div>
   </div>
 </section>

@@ -89,7 +89,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.seo.siteUrl).href
   </head>
   <body class="min-h-screen flex flex-col overflow-x-hidden w-full">
     <Navbar client:only="react" />
-    <main class="flex-1 overflow-x-hidden w-full">
+    <main class="flex-1 w-full">
       <slot />
     </main>
     <Footer client:visible />

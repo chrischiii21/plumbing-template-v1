@@ -62,7 +62,7 @@ function UtilityLink({ item }: { item: NavItemType }) {
     >
       <a 
         href={item.href} 
-        className={`text-[10px] font-[900] uppercase tracking-[0.2em] transition-all px-4 py-2 relative z-50 inline-flex items-center gap-2 active:scale-95 ${isOpen ? 'text-[#3B82F6]' : 'text-[#1C398E]/50 hover:text-[#3B82F6]'}`}
+        className={`text-[11px] font-black uppercase tracking-[0.15em] transition-all px-4 py-2 rounded-full relative z-50 inline-flex items-center gap-2 active:scale-95 ${isOpen ? 'text-[#3B82F6] bg-[#3B82F6]/5' : 'text-[#1C398E]/90 hover:text-[#3B82F6] hover:bg-[#3B82F6]/5'}`}
         style={{ fontFamily: 'JetBrains Mono, monospace' }}
       >
         {item.title}
@@ -115,7 +115,7 @@ function NavItem({ item }: { item: MegaMenuItem }) {
         <div className="fixed top-[120px] md:top-[160px] left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-3xl shadow-clayFloating p-8 z-[50] w-[96vw] max-w-[1500px] rounded-[40px] border border-[#3B82F6]/5 animate-in fade-in zoom-in-95 duration-300 overflow-hidden">
           <div className="flex flex-col gap-8">
             {/* Header info bar - More compact */}
-            <div className="flex items-center justify-between border-b border-[#3B82F6]/5 pb-4">
+            <div className="flex items-center border-b border-[#3B82F6]/5 pb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center text-[#3B82F6]">
                   <Info className="w-5 h-5" />
@@ -125,9 +125,6 @@ function NavItem({ item }: { item: MegaMenuItem }) {
                   <p className="text-[10px] font-bold text-[#1C398E]/30 uppercase tracking-widest">Select a category to explore</p>
                 </div>
               </div>
-              <a href={item.href} className="text-[9px] font-black text-[#3B82F6] uppercase tracking-[0.2em] px-5 py-2.5 rounded-full bg-[#3B82F6]/5 hover:bg-[#3B82F6] hover:text-white transition-all">
-                View All
-              </a>
             </div>
 
             {/* High-density Grid Layout - Single row priority */}
@@ -138,12 +135,15 @@ function NavItem({ item }: { item: MegaMenuItem }) {
             }`}>
               {item.categories.map((category) => (
                 <div key={category.title} className="bg-[#f8faff] rounded-[28px] p-4 lg:p-5 shadow-clayInner group/cat hover:shadow-clayButton transition-all duration-500 flex flex-col h-full border border-transparent hover:border-[#3B82F6]/10">
-                  <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#3B82F6]/5">
+                  <a 
+                    href={category.href || "#"} 
+                    className="flex items-center gap-3 mb-4 pb-3 border-b border-[#3B82F6]/5 group/head cursor-pointer"
+                  >
                     <div className="w-9 h-9 rounded-xl bg-white shadow-clayButton flex items-center justify-center text-[#3B82F6] group-hover/cat:scale-110 group-hover/cat:rotate-6 transition-all duration-500 shrink-0">
                       {iconMap[category.icon] || <Settings className="h-4 w-4" />}
                     </div>
-                    <h3 className="text-[10px] font-black text-[#1C398E] uppercase tracking-widest leading-tight line-clamp-2">{category.title}</h3>
-                  </div>
+                    <h3 className="text-[10px] font-black text-[#1C398E] uppercase tracking-widest leading-tight line-clamp-2 group-hover/head:text-[#3B82F6] transition-colors">{category.title}</h3>
+                  </a>
                   <ul className="space-y-2.5 flex-grow">
                     {category.items.map((child) => (
                       <li key={child.href}>
@@ -157,12 +157,6 @@ function NavItem({ item }: { item: MegaMenuItem }) {
                       </li>
                     ))}
                   </ul>
-                  {category.href && (
-                    <a href={category.href} className="mt-5 flex items-center gap-1.5 text-[8px] font-black text-[#3B82F6] uppercase tracking-widest group/more">
-                      Details 
-                      <ChevronDown className="w-2.5 h-2.5 -rotate-90 group-hover/more:translate-x-1 transition-transform" />
-                    </a>
-                  )}
                 </div>
               ))}
             </div>
@@ -294,22 +288,35 @@ export function Navbar() {
                     </SheetHeader>
 
                     <div className="p-8 overflow-y-auto max-h-[calc(100vh-120px)] space-y-8">
-                      {/* Highlighted Actions in Mobile Menu */}
-                      <div className="grid grid-cols-2 gap-4">
+                      {/* Mobile Utility Actions */}
+                      <div className="grid grid-cols-2 gap-4 mb-8">
                         {quickActions.map((action) => (
                           <a 
                             key={action.href} 
-                            href={action.href} 
-                            className={`p-4 rounded-[24px] flex flex-col gap-3 shadow-clayButton transition-all active:scale-95
-                              ${action.icon === "settings" ? "bg-[#3B82F6] text-white" : "bg-[#D97706] text-white"}`}
+                            href={action.href}
+                            className={`flex flex-col items-center gap-3 p-5 rounded-[24px] transition-all active:scale-95 text-white ${
+                              action.icon === "settings" 
+                                ? "bg-[#3B82F6] shadow-clayButton" 
+                                : "bg-[#D97706] shadow-clayAmber"
+                            }`}
                           >
                             <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                               {action.icon === "settings" ? <Settings className="w-4 h-4" /> : <DollarSign className="w-4 h-4" />}
                             </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest">{action.title}</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-center leading-tight">{action.title}</span>
                           </a>
                         ))}
                       </div>
+
+                      <div className="grid grid-cols-2 gap-4 px-4 mb-8">
+                        {topNavItems.map((item) => (
+                          <a key={item.href} href={item.href} className="text-[12px] font-bold text-[#1C398E]/60 hover:text-[#3B82F6] transition-colors uppercase tracking-widest">
+                            {item.title}
+                          </a>
+                        ))}
+                      </div>
+
+                      <div className="h-px bg-[#3B82F6]/5 mx-4 mb-8" />
 
                       {/* Mobile Navigation Links */}
                       <nav className="space-y-6">
@@ -318,28 +325,40 @@ export function Navbar() {
                             <h4 className="text-[10px] font-black text-[#3B82F6] uppercase tracking-[0.4em] px-4">{item.title}</h4>
                             <div className="space-y-2">
                               {item.categories.map((cat) => (
-                                <a 
-                                  key={cat.title} 
-                                  href={cat.href || "#"} 
-                                  className="flex items-center gap-4 p-4 rounded-2xl hover:bg-[#f8faff] text-[#1C398E] font-bold text-sm transition-all group"
-                                >
-                                  <div className="w-8 h-8 rounded-xl bg-white shadow-clayInner flex items-center justify-center group-hover:shadow-clayButton text-[#3B82F6]">
-                                    {iconMap[cat.icon] || <Leaf className="w-4 h-4" />}
-                                  </div>
-                                  {cat.title}
-                                </a>
+                                <details key={cat.title} className="group">
+                                  <summary className="flex items-center rounded-2xl hover:bg-[#f8faff] text-[#1C398E] font-bold text-sm transition-all cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none">
+                                    <a href={cat.href || "#"} className="flex items-center gap-4 p-4 flex-1 group/link" onClick={(e) => e.stopPropagation()}>
+                                      <div className="w-8 h-8 rounded-xl bg-white shadow-clayInner flex items-center justify-center group-hover/link:shadow-clayButton text-[#3B82F6] shrink-0 transition-all">
+                                        {iconMap[cat.icon] || <Leaf className="w-4 h-4" />}
+                                      </div>
+                                      <span className="group-hover/link:text-[#3B82F6] transition-colors">{cat.title}</span>
+                                    </a>
+                                    {cat.items && cat.items.length > 0 && (
+                                      <div className="p-4 flex items-center justify-center shrink-0">
+                                        <ChevronDown className="w-5 h-5 text-[#1C398E]/40 group-open:rotate-180 transition-transform" />
+                                      </div>
+                                    )}
+                                  </summary>
+                                  
+                                  {cat.items && cat.items.length > 0 && (
+                                    <div className="pl-16 pr-4 pb-4 pt-2 space-y-4 animate-in slide-in-from-top-2 duration-200">
+                                      {cat.items.map((subItem) => (
+                                        <a 
+                                          key={subItem.href} 
+                                          href={subItem.href} 
+                                          className="block text-[12px] font-bold text-[#1C398E]/60 hover:text-[#3B82F6] transition-colors relative before:absolute before:-left-3 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full before:bg-[#3B82F6]/30 hover:before:bg-[#3B82F6]"
+                                          style={{ fontFamily: 'Montserrat, sans-serif' }}
+                                        >
+                                          {subItem.title}
+                                        </a>
+                                      ))}
+                                    </div>
+                                  )}
+                                </details>
                               ))}
                             </div>
                           </div>
                         ))}
-                        <div className="h-px bg-[#3B82F6]/5 mx-4 my-8" />
-                        <div className="grid grid-cols-2 gap-4 px-4">
-                          {topNavItems.map((item) => (
-                            <a key={item.href} href={item.href} className="text-[12px] font-bold text-[#1C398E]/60 hover:text-[#3B82F6] transition-colors uppercase tracking-widest">
-                              {item.title}
-                            </a>
-                          ))}
-                        </div>
                       </nav>
 
                       {/* Mobile Contact Action */}

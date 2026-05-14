@@ -1,6 +1,6 @@
 ---
-import { getLocationText } from "@/config/brand-settings"
-import { ShieldCheck, CalendarCheck, Zap } from "lucide-react"
+import { getLocationText } from "@/config/brand-settings";
+import { ShieldCheck, CalendarCheck, Zap } from "lucide-react";
 
 interface IncludedItem {
   title: string;
@@ -16,87 +16,167 @@ interface Props {
   buttonHref?: string;
 }
 
-const { title: raw_title, description: raw_description, includedItems, benefits, buttonText = "LEARN MORE", buttonHref = "/maintenance-plans" } = Astro.props;
+const {
+  title: raw_title,
+  description: raw_description,
+  includedItems,
+  benefits,
+  buttonText = "LEARN MORE",
+  buttonHref = "/maintenance-plans",
+} = Astro.props;
 
 // Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
-const description = raw_description ? getLocationText(raw_description) : raw_description;
+const description = raw_description
+  ? getLocationText(raw_description)
+  : raw_description;
 ---
 
-<section class="py-24 bg-[#f8faff] relative overflow-hidden border-y border-[#3B82F6]/5 shadow-clayInner">
+<section
+  class="py-24 bg-[#f8faff] relative overflow-hidden border-y border-[#3B82F6]/5 shadow-clayInner"
+>
   {/* Ambient Clay Blobs */}
-  <div class="absolute top-0 -left-20 w-96 h-96 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 -right-20 w-96 h-96 bg-[#16A34A]/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div
+    class="absolute top-0 -left-20 w-96 h-96 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 -right-20 w-96 h-96 bg-[#16A34A]/5 rounded-full blur-3xl pointer-events-none"
+  >
+  </div>
 
   <div class="container mx-auto px-4 relative z-10">
-    <div class="text-center mb-16" data-animate="fade-up">
-      <div class="inline-flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-clayButton mb-6">
-        <ShieldCheck className="w-5 h-5 text-[#3B82F6]" />
-        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#1C398E]" style="font-family: 'JetBrains Mono', monospace;">Peace of Mind</span>
-      </div>
-      <h2 class="text-4xl md:text-5xl font-black text-[#1C398E] mb-6 tracking-tight leading-tight" style="font-family: 'Poppins', sans-serif;">{title}</h2>
-      <p class="text-[17px] text-[#1C398E]/60 max-w-3xl mx-auto font-medium leading-relaxed" style="font-family: 'Montserrat', sans-serif;" set:html={description} />
+    <div class="text-center mb-16 max-w-5xl mx-auto" data-animate="fade-up">
+      <h2
+        class="text-3xl md:text-4xl lg:text-5xl font-black text-[#1C398E] mb-6 tracking-tight leading-[1.15]"
+        style="font-family: 'Poppins', sans-serif;"
+      >
+        {title}
+      </h2>
+      <p
+        class="text-base md:text-lg text-[#1C398E]/60 max-w-5xl mx-auto font-medium leading-relaxed"
+        style="font-family: 'Montserrat', sans-serif;"
+        set:html={description}
+      />
     </div>
-    
-    <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
-      
-      {/* Plan Details Card */}
-      <div class="bg-white rounded-[40px] p-10 shadow-clayCard relative overflow-hidden group" data-animate="fade-right">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#3B82F6]/5 rounded-full blur-2xl group-hover:scale-110 transition-transform"></div>
-        
-        <div class="relative z-10">
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-12 h-12 rounded-full bg-[#3B82F6]/10 flex items-center justify-center shadow-clayButton text-[#3B82F6]">
-              <CalendarCheck className="w-6 h-6" />
-            </div>
-            <h3 class="text-xl font-black text-[#1C398E]" style="font-family: 'Poppins', sans-serif;">What's Included?</h3>
-          </div>
 
-          <ul class="space-y-6">
-            {includedItems.map((item) => (
-              <li class="flex items-start gap-5 p-4 bg-[#f8faff] rounded-[24px] shadow-clayInner group-hover:shadow-clayButton transition-all">
-                <div class="w-3 h-3 rounded-full bg-[#3B82F6] mt-1.5 shadow-clayButton"></div>
-                <div>
-                  <span class="text-sm font-black text-[#1C398E] uppercase tracking-wide block mb-1">{item.title}</span>
-                  <p class="text-[13px] text-[#1C398E]/50 font-medium leading-relaxed" set:html={item.description} />
-                </div>
-              </li>
-            ))}
-          </ul>
+    <div class="max-w-7xl mx-auto">
+      {/* Header for Included Items */}
+      <div
+        class="flex items-center justify-center gap-4 mb-10"
+        data-animate="fade-up"
+      >
+        <div class="h-px w-12 bg-[#3B82F6]/30"></div>
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-clayInner text-[#3B82F6]"
+        >
+          <CalendarCheck className="w-4 h-4" />
+          <span class="text-[11px] font-black uppercase tracking-[0.2em]"
+            >What's Included in Our Maintenance Plans?</span
+          >
         </div>
+        <div class="h-px w-12 bg-[#3B82F6]/30"></div>
       </div>
-      
-      {/* Benefits Card */}
-      <div class="bg-white rounded-[40px] p-10 shadow-clayCard flex flex-col relative overflow-hidden group" data-animate="fade-left">
-        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#16A34A]/5 rounded-full blur-2xl group-hover:scale-110 transition-transform"></div>
 
-        <div class="relative z-10 h-full flex flex-col">
+      {/* Bento Grid for Plan Details */}
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"
+        data-animate="fade-up"
+      >
+        {
+          includedItems.map((item, index) => (
+            <div
+              class={`bg-white rounded-[32px] p-8 shadow-clayCard hover:shadow-[10px_10px_20px_rgba(59,130,246,0.1),-10px_-10px_20px_rgba(255,255,255,1)] transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group ${
+                index === 3 ? "md:col-span-2 lg:col-span-2" : ""
+              }`}
+            >
+              <div class="absolute -right-4 -top-4 w-24 h-24 bg-[#3B82F6]/5 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700" />
+
+              <div class="w-12 h-12 rounded-2xl bg-[#f8faff] flex items-center justify-center shadow-clayInner text-[#3B82F6] mb-6 relative z-10 group-hover:bg-[#3B82F6] group-hover:text-white transition-colors duration-300">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+
+              <h4 class="text-lg font-black text-[#1C398E] uppercase tracking-wide mb-3 relative z-10">
+                {item.title}
+              </h4>
+              <p
+                class="text-sm text-[#1C398E]/60 font-medium leading-relaxed relative z-10"
+                set:html={item.description}
+              />
+            </div>
+          ))
+        }
+      </div>
+
+      {/* Unified Bottom Banner: Benefits & CTA */}
+      <div
+        class="bg-white rounded-[40px] p-10 lg:p-14 shadow-clayCard relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-12"
+        data-animate="fade-up"
+      >
+        {/* Decorative Background Elements */}
+        <div
+          class="absolute -left-20 -bottom-20 w-80 h-80 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none"
+        >
+        </div>
+        <div
+          class="absolute right-0 top-0 w-64 h-64 bg-[#16A34A]/5 rounded-full blur-3xl pointer-events-none"
+        >
+        </div>
+
+        <div class="relative z-10 lg:w-3/5">
           <div class="flex items-center gap-4 mb-8">
-            <div class="w-12 h-12 rounded-full bg-[#16A34A]/10 flex items-center justify-center shadow-clayButton text-[#16A34A]">
+            <div
+              class="w-12 h-12 rounded-full bg-[#16A34A]/10 flex items-center justify-center shadow-clayButton text-[#16A34A]"
+            >
               <Zap className="w-6 h-6" />
             </div>
-            <h3 class="text-xl font-black text-[#1C398E]" style="font-family: 'Poppins', sans-serif;">Why Invest?</h3>
+            <h3
+              class="text-2xl font-black text-[#1C398E]"
+              style="font-family: 'Poppins', sans-serif;"
+            >
+              Why Invest in a Maintenance Plan?
+            </h3>
           </div>
 
-          <ul class="space-y-4 mb-10">
-            {benefits.map((benefit) => (
-              <li class="flex items-center gap-4 bg-[#f8faff] p-4 rounded-[20px] shadow-clayInner group-hover:shadow-clayButton transition-all">
-                <div class="w-8 h-8 rounded-full bg-[#16A34A] text-white flex items-center justify-center shadow-clayButton">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {
+              benefits.map((benefit) => (
+                <div class="flex items-center gap-4 bg-[#f8faff] p-4 rounded-[20px] shadow-clayInner group-hover:shadow-clayButton transition-all">
+                  <div class="w-8 h-8 shrink-0 rounded-full bg-[#16A34A] text-white flex items-center justify-center shadow-clayButton">
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <span class="text-xs font-black text-[#1C398E] uppercase tracking-wide leading-tight">
+                    {benefit}
+                  </span>
                 </div>
-                <span class="text-sm font-black text-[#1C398E] uppercase tracking-wide">{benefit}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div class="mt-auto">
-            <a href={buttonHref} class="clay-btn-primary w-full py-5 text-sm text-white font-black uppercase tracking-[0.2em]">
-              {buttonText}
-            </a>
+              ))
+            }
           </div>
         </div>
-      </div>
 
+        <div
+          class="relative z-10 lg:w-2/5 flex justify-center lg:justify-end w-full"
+        >
+          <a
+            href={buttonHref}
+            class="clay-btn-primary w-full max-w-sm py-5 text-sm text-white font-black uppercase tracking-[0.2em] flex items-center justify-center"
+          >
+            {buttonText}
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -104,7 +184,7 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 <style>
   /* Clay Foundations */
   .shadow-clayCard {
-    box-shadow: 
+    box-shadow:
       16px 16px 32px rgba(28, 57, 142, 0.08),
       -12px -12px 24px rgba(255, 255, 255, 1),
       inset 4px 4px 10px rgba(255, 255, 255, 0.8),
@@ -112,7 +192,7 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
   }
 
   .shadow-clayButton {
-    box-shadow: 
+    box-shadow:
       6px 6px 12px rgba(28, 57, 142, 0.06),
       -6px -6px 12px rgba(255, 255, 255, 1),
       inset 3px 3px 6px rgba(255, 255, 255, 0.6),
@@ -120,15 +200,15 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
   }
 
   .shadow-clayInner {
-    box-shadow: 
+    box-shadow:
       inset 10px 10px 20px rgba(28, 57, 142, 0.06),
       inset -10px -10px 20px rgba(255, 255, 255, 1);
   }
 
   .clay-btn-primary {
-    background: #3B82F6;
+    background: #3b82f6;
     border-radius: 24px;
-    box-shadow: 
+    box-shadow:
       12px 12px 24px rgba(59, 130, 246, 0.3),
       inset 6px 6px 12px rgba(255, 255, 255, 0.3),
       inset -6px -6px 12px rgba(0, 0, 0, 0.1);

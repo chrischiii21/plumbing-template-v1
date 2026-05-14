@@ -114,7 +114,7 @@ export function ServicesSection({ title, description, categories }: Props) {
         </div>
 
         {/* Dynamic Bento Layout */}
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch">
           {/* Featured Category Card - Takes 4 columns */}
           <div className={`lg:col-span-4 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             {(() => {
@@ -179,12 +179,19 @@ export function ServicesSection({ title, description, categories }: Props) {
 
                   <div className="shrink-0 w-16 h-16 rounded-2xl bg-[#F8FAFC] clay-inner-groove p-3 flex items-center justify-center group-hover:bg-white transition-colors duration-500 shadow-sm relative z-10">
                     {service.icon ? (
-                      <img 
-                        src={service.icon} 
-                        alt="" 
-                        className="w-full h-full object-contain" 
-                        style={{ filter: 'invert(37%) sepia(93%) saturate(1431%) hue-rotate(201deg) brightness(101%) contrast(101%)' }}
-                      />
+                      <div 
+                        className="w-full h-full bg-[#3B82F6] group-hover:scale-110 transition-transform duration-500 drop-shadow-sm"
+                        style={{
+                          WebkitMaskImage: `url('${service.icon}')`,
+                          WebkitMaskSize: 'contain',
+                          WebkitMaskRepeat: 'no-repeat',
+                          WebkitMaskPosition: 'center',
+                          maskImage: `url('${service.icon}')`,
+                          maskSize: 'contain',
+                          maskRepeat: 'no-repeat',
+                          maskPosition: 'center'
+                        }}
+                      ></div>
                     ) : (
                       <Wrench size={28} className="text-[#3B82F6]" strokeWidth={2.5} />
                     )}
