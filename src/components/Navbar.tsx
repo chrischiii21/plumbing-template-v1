@@ -199,7 +199,7 @@ export function Navbar() {
                   key={action.href} 
                   href={action.href} 
                   aria-label={action.title}
-                  className={`group relative px-6 py-2.5 rounded-[18px] text-[10px] font-[900] uppercase tracking-[0.2em] flex items-center gap-3 transition-all duration-500 active:scale-95 z-50
+                  className={`group relative px-6 py-2.5 rounded-full text-[10px] font-[900] uppercase tracking-[0.2em] flex items-center gap-3 transition-all duration-500 active:scale-95 z-50
                     ${action.icon === "settings" 
                       ? "bg-[#3B82F6] text-white shadow-clayButton hover:bg-[#2563EB] hover:-translate-y-0.5" 
                       : "bg-[#D97706] text-white shadow-clayAmber hover:bg-[#B45309] hover:-translate-y-0.5"
@@ -252,7 +252,7 @@ export function Navbar() {
               {/* Get Quote - Hidden on very small screens, or scaled down */}
               <a 
                 href="/contact" 
-                className="hidden sm:flex bg-[#3B82F6] text-white px-6 md:px-10 h-10 md:h-14 rounded-[16px] md:rounded-[20px] shadow-clayButton items-center justify-center text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] hover:brightness-105 hover:-translate-y-1 transition-all active:scale-95"
+                className="hidden sm:flex bg-[#3B82F6] text-white px-6 md:px-10 h-10 md:h-14 rounded-full shadow-clayButton items-center justify-center text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] hover:bg-[#2563EB] hover:-translate-y-1 transition-all active:scale-95"
               >
                 Get Quote
               </a>
@@ -364,7 +364,7 @@ export function Navbar() {
                       </nav>
 
                       {/* Mobile Contact Action */}
-                      <a href="/contact" className="w-full py-5 rounded-[24px] bg-[#3B82F6] text-white shadow-clayButton flex items-center justify-center text-[12px] font-black uppercase tracking-[0.3em] active:scale-95 transition-all">
+                      <a href="/contact" className="w-full py-5 rounded-full bg-[#3B82F6] text-white shadow-clayButton flex items-center justify-center text-[12px] font-black uppercase tracking-[0.3em] active:scale-95 transition-all">
                         Get Started Today
                       </a>
                     </div>
